@@ -1,6 +1,6 @@
 # TRAZVA — Tenis con carácter
 
-Una sola colección con 12 referencias visibles: 8 modelos GLB locales y 4 modelos de running con visor externo. La interfaz no muestra fotografías de producto. Los seis modelos investigados sin 3D integrado están fuera del catálogo visible, el buscador y el comparador.
+Una sola colección con 12 referencias visibles: 8 modelos GLB locales y 4 modelos de running con visor externo. La interfaz no muestra fotografías de producto. Los seis modelos investigados sin 3D integrado están fuera del catálogo visible, el buscador y el comparador. sisisi
 
 ## Ejecutar
 
