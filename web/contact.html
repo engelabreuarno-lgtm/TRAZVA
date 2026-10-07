@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f4f2ed" />
+    <meta
+      name="description"
+      content="TRAZVA. Una selección de sneakers con carácter. Descubre la colección, encuentra tu talla y crea tu selección."
+    />
+    <title>Estamos cerca — TRAZVA</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body data-page="contact">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="header"></header>
+    <noscript
+      ><p style="padding: 20px; text-align: center">
+        Activa JavaScript para explorar la colección y utilizar tu bolsa.
+      </p></noscript
+    >
+    <main id="contenido" class="wrap inner-main">
+      <div class="page-heading">
+        <p class="eyebrow">ESTAMOS PARA ORIENTARTE</p>
+        <div class="heading-row">
+          <h1>Hablemos<span class="accent-dot">.</span></h1>
+          <p>Las buenas decisiones<br />empiezan con una pregunta.</p>
+        </div>
+      </div>
+      <div class="contact-layout">
+        <section class="contact-panel">
+          <p class="eyebrow">01 / TU CONSULTA</p>
+          <h2>Todo empieza aquí.</h2>
+          <p>
+            Guarda tu consulta en Mi estudio para retomarla después. No se envía
+            por correo ni se confirma una respuesta comercial.
+          </p>
+          <form id="contactForm">
+            <div class="form-row">
+              <label
+                >Tu nombre<input
+                  name="name"
+                  minlength="2"
+                  required
+                  maxlength="100"
+                  autocomplete="name"
+                  placeholder="¿Cómo te llamas?" /></label
+              ><label
+                >Correo electrónico<input
+                  name="email"
+                  required
+                  type="email"
+                  maxlength="200"
+                  autocomplete="email"
+                  placeholder="tu@correo.com"
+              /></label>
+            </div>
+            <label
+              >¿Sobre qué quieres hablar?<select name="subject" required>
+                <option value="">Selecciona un tema</option>
+                <option>Tallas y modelos</option>
+                <option>Envíos y cambios</option>
+                <option>Otra consulta</option>
+              </select></label
+            ><label
+              >Tu mensaje<textarea
+                name="message"
+                required
+                minlength="10"
+                maxlength="2000"
+                rows="5"
+                placeholder="Cuéntanos un poco más…"
+              ></textarea></label
+            ><button class="button dark" type="submit">
+              Guardar consulta <span>↗</span>
+            </button>
+            <p class="form-status" id="contactStatus" role="status"></p>
+          </form>
+        </section>
+        <section class="faq-panel">
+          <p class="eyebrow">02 / RESPUESTAS CLARAS</p>
+          <h2>Antes de preguntar.</h2>
+          <details>
+            <summary>¿Cómo veo los detalles de un par?<span>+</span></summary>
+            <p>
+              Pulsa Ver detalles en cualquier par. Arrastra para girarlo y usa
+              la rueda o pellizca para acercarte. La ficha reúne la información
+              del producto y los controles disponibles; en running también
+              puedes comparar sus datos.
+            </p>
+          </details>
+          <details open>
+            <summary>¿Cómo elijo mi talla?<span>+</span></summary>
+            <p>
+              Las tallas de esta selección se muestran en US de hombre. Usa la
+              guía orientativa de cada producto y comprueba siempre la tabla del
+              fabricante antes de comprar.
+            </p>
+          </details>
+          <details>
+            <summary>¿Puedo comprar en esta página?<span>+</span></summary>
+            <p>
+              Esta es una tienda de demostración. Puedes explorar, guardar
+              favoritos y preparar un carrito; no se procesan pagos, pedidos ni
+              envíos reales.
+            </p>
+          </details>
+          <details>
+            <summary>¿Cómo se calcula el envío?<span>+</span></summary>
+            <p>
+              La simulación aplica USD 12 de envío o envío gratis desde USD 200,
+              después de descuentos. Los plazos y destinos se definirán cuando
+              la tienda esté operativa.
+            </p>
+          </details>
+          <details>
+            <summary>¿Se guardan mis favoritos?<span>+</span></summary>
+            <p>
+              Los favoritos del archivo y la bolsa se guardan en este navegador.
+              La selección de running se guarda en tu cuenta y puedes abrirla en
+              Mi estudio desde otros dispositivos.
+            </p>
+          </details>
+          <details>
+            <summary>
+              ¿Los pares están disponibles para comprar?<span>+</span>
+            </summary>
+            <p>
+              Los visores muestran representaciones digitales de referencia;
+              algunos modelos son escaneos de piezas usadas o estudios
+              monocromáticos. El inventario, las referencias comerciales y las
+              políticas de cambios deben confirmarse antes de habilitar ventas.
+            </p>
+          </details>
+          <div class="support-note">
+            <span data-icon="arrow"></span>
+            <p>
+              Elegir bien también es<br /><strong
+                >tener toda la información.</strong
+              >
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer id="footer"></footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

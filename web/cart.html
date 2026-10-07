@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f4f2ed" />
+    <meta
+      name="description"
+      content="TRAZVA. Una selección de sneakers con carácter. Descubre la colección, encuentra tu talla y crea tu selección."
+    />
+    <title>Tu selección — TRAZVA</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body data-page="cart">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="header"></header>
+    <noscript
+      ><p style="padding: 20px; text-align: center">
+        Activa JavaScript para explorar la colección y utilizar tu bolsa.
+      </p></noscript
+    >
+    <main id="contenido" class="wrap inner-main">
+      <div class="page-heading">
+        <p class="eyebrow">UN PASO MÁS CERCA</p>
+        <h1>Tu selección<span class="accent-dot">.</span></h1>
+      </div>
+      <div class="cart-layout">
+        <div id="cartItemsList"></div>
+        <aside class="cart-summary">
+          <p class="eyebrow">LOS DETALLES</p>
+          <h2>Resumen</h2>
+          <div class="summary-row">
+            <span>Subtotal</span><span id="subtotalVal"></span>
+          </div>
+          <div class="summary-row" id="discountRow" hidden>
+            <span id="discountLabel">Descuento</span
+            ><span id="discountVal"></span>
+          </div>
+          <div class="summary-row">
+            <span>Envío estimado</span><span id="shippingVal"></span>
+          </div>
+          <p class="shipping-hint" id="shippingHint"></p>
+          <div class="shipping-track"><span id="shippingProgress"></span></div>
+          <form id="couponForm" class="coupon-form">
+            <label class="sr-only" for="couponInput">Código de descuento</label
+            ><input
+              id="couponInput"
+              placeholder="Código de descuento"
+              maxlength="24"
+            /><button type="submit">Aplicar</button>
+          </form>
+          <p class="coupon-hint">Simula un 10% de descuento con TRAZVA10.</p>
+          <div class="summary-total">
+            <span>Total estimado</span><strong id="totalVal"></strong>
+          </div>
+          <button class="button dark full" id="checkoutBtn">
+            Revisar pedido <span>↗</span>
+          </button>
+          <p class="demo-note">
+            Experiencia de demostración. No se realizan cobros ni pedidos
+            reales. Importes en USD; impuestos no calculados.
+          </p>
+        </aside>
+      </div>
+      <a class="text-link continue-link" href="showroom.html"
+        >← Seguir explorando</a
+      >
+    </main>
+    <footer id="footer"></footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

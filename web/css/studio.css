@@ -1,0 +1,456 @@
+/* TRAZVA 3D Studio — extends the existing editorial design. */
+#header:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #859a4d;
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+  pointer-events: none;
+}
+#header.scrolled {
+  box-shadow: 0 6px 25px #2025220a;
+}
+.product-card {
+  animation: card-enter 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--card-order, 0) * 45ms);
+}
+.badge-3d {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  background: #f4f2eddf;
+  border: 1px solid #fff8;
+  backdrop-filter: blur(7px);
+  border-radius: 20px;
+  padding: 7px 11px;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+}
+.quick-view {
+  z-index: 1;
+}
+.favorite-button {
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+.favorite-button:hover {
+  transform: scale(1.08);
+}
+.favorite-button[aria-pressed="true"] {
+  background: var(--green);
+}
+.sizes button {
+  transition:
+    background 0.2s,
+    transform 0.2s,
+    color 0.2s;
+}
+.sizes button:not(:disabled):hover {
+  transform: translateY(-2px);
+  border-color: #839450;
+}
+.button > span,
+.text-link > span {
+  transition: transform 0.25s;
+}
+.button:hover > span,
+.text-link:hover > span {
+  transform: translate(3px, -3px);
+}
+.hero-copy > .eyebrow,
+.hero h1,
+.hero-desc,
+.hero-copy > .button {
+  animation: copy-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero h1 {
+  animation-delay: 0.08s;
+}
+.hero-desc {
+  animation-delay: 0.16s;
+}
+.hero-copy > .button {
+  animation-delay: 0.24s;
+}
+.hero-visual > img,
+.hero-visual:hover > img {
+  transform: translate(var(--hero-x, 0px), var(--hero-y, 0px)) scale(1.025);
+  transition: transform 0.6s ease-out;
+}
+.hero-product:hover .circle-link {
+  background: #fff;
+  color: #b11a28;
+  transform: rotate(45deg);
+}
+.hero-product .circle-link {
+  transition:
+    transform 0.25s,
+    background 0.25s,
+    color 0.25s;
+}
+.footer-links button {
+  padding: 0;
+  text-align: left;
+  color: #a7aea1;
+  font-size: 11px;
+  width: fit-content;
+}
+.footer-links button:hover {
+  color: var(--green);
+}
+dialog[open] {
+  animation: dialog-enter 0.27s cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+dialog[open]::backdrop {
+  animation: backdrop-enter 0.25s ease both;
+}
+dialog.closing {
+  animation: dialog-exit 0.16s ease both;
+}
+dialog.closing::backdrop {
+  animation: backdrop-exit 0.16s ease both;
+}
+.product-dialog {
+  width: min(1100px, calc(100% - 40px));
+}
+.product-dialog-layout {
+  grid-template-columns: 1.08fr 1fr;
+}
+.detail-copy {
+  padding-top: 42px;
+}
+.detail-copy h2 {
+  font-size: 35px;
+}
+.detail-visual {
+  background: var(--model-bg, #e6e7de);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 600px;
+  isolation: isolate;
+}
+.media-tabs {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  background: #f4f2edb8;
+  border: 1px solid #fff8;
+  padding: 4px;
+  gap: 3px;
+  border-radius: 24px;
+  z-index: 3;
+  backdrop-filter: blur(10px);
+}
+.media-tabs button {
+  border-radius: 20px;
+  padding: 9px 14px;
+  font-size: 11px;
+}
+.media-tabs button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.model-stage {
+  position: relative;
+  flex: 1;
+  min-height: 455px;
+  overflow: hidden;
+}
+.model-mount {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.model-mount model-viewer {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  --poster-color: transparent;
+  --progress-bar-color: #839450;
+  --progress-bar-height: 3px;
+  touch-action: pan-y;
+}
+.model-ready .model-mount {
+  opacity: 1;
+}
+.model-loading {
+  position: absolute;
+  bottom: 22px;
+  left: 24px;
+  right: 24px;
+  background: #f4f2edeb;
+  border: 1px solid #fff9;
+  backdrop-filter: blur(8px);
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  z-index: 2;
+  line-height: 1.6;
+}
+.loading-ring {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid #aab59d;
+  border-right-color: var(--ink);
+  border-radius: 50%;
+  animation: loading-spin 0.9s linear infinite;
+  flex-shrink: 0;
+}
+.model-failed .loading-ring {
+  display: none;
+}
+.model-loading button {
+  padding: 7px;
+  border: 1px solid #859371;
+  border-radius: 3px;
+  font-size: 10px;
+}
+.model-failed .model-loading {
+  flex-wrap: wrap;
+}
+.model-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 20px;
+  border-top: 1px solid #20252225;
+  padding-top: 13px;
+  z-index: 2;
+}
+.model-toolbar > div {
+  display: flex;
+  gap: 2px;
+}
+.model-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 20px;
+  font-size: 19px;
+  transition: background 0.2s;
+}
+.model-toolbar button > span {
+  font-size: 10px;
+}
+.model-toolbar button:hover:not(:disabled),
+.model-toolbar button[aria-pressed="true"] {
+  background: #f4f2edcf;
+}
+.model-toolbar button[aria-pressed="true"] {
+  color: #3d5321;
+}
+.model-hint {
+  font-size: 9px;
+  text-align: center;
+  color: #434a42;
+  padding: 11px 12px 20px;
+  letter-spacing: 0.02em;
+}
+.model-credits {
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 13px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.model-credits summary {
+  cursor: pointer;
+  list-style: none;
+}
+.model-credits summary:after {
+  content: " +";
+  float: right;
+}
+.model-credits[open] summary:after {
+  content: " −";
+}
+.model-credits p {
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+  font-size: 10px;
+}
+.model-credits a {
+  text-decoration: underline;
+}
+.detail-visual:fullscreen {
+  width: 100vw;
+  height: 100dvh;
+  min-height: 0;
+}
+.detail-visual:fullscreen .model-stage {
+  min-height: 0;
+}
+.detail-visual:fullscreen .model-toolbar {
+  justify-content: center;
+  gap: 35px;
+  max-width: 600px;
+  align-self: center;
+  width: 90%;
+}
+.detail-visual:fullscreen .media-tabs {
+  top: 25px;
+  left: 25px;
+}
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes copy-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes dialog-exit {
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+}
+@keyframes backdrop-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes backdrop-exit {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 760px) {
+  .product-dialog {
+    width: calc(100% - 20px);
+    max-height: 94dvh;
+  }
+  .product-dialog-layout {
+    grid-template-columns: 1fr;
+  }
+  .detail-visual {
+    min-height: 370px;
+  }
+  .model-stage {
+    min-height: 300px;
+  }
+  .model-mount model-viewer {
+    min-height: 300px;
+  }
+  .media-tabs {
+    top: 13px;
+    left: 13px;
+  }
+  .media-tabs button {
+    font-size: 10px;
+    padding: 8px 12px;
+  }
+  .model-toolbar {
+    margin: 0 15px;
+    padding-top: 8px;
+  }
+  .model-hint {
+    padding: 6px 10px 12px;
+    font-size: 8px;
+  }
+  .detail-copy {
+    padding: 26px 23px;
+  }
+  .detail-copy h2 {
+    font-size: 31px;
+  }
+  .model-toolbar button > span {
+    font-size: 9px;
+  }
+  .model-credits {
+    margin-bottom: 8px;
+  }
+  .badge-3d {
+    bottom: 10px;
+    left: 10px;
+    padding: 6px 9px;
+    font-size: 8px;
+  }
+  .model-loading {
+    left: 15px;
+    right: 15px;
+    bottom: 13px;
+    font-size: 10px;
+  }
+}
+:root[data-motion="off"] {
+  scroll-behavior: auto;
+}
+:root[data-motion="off"] *,
+:root[data-motion="off"] *:before,
+:root[data-motion="off"] *:after {
+  animation: none !important;
+  transition: none !important;
+}
+:root[data-motion="off"] .reveal-ready {
+  opacity: 1;
+  transform: none;
+}
+:root[data-motion="off"] .hero-visual > img {
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal-ready {
+    opacity: 1;
+    transform: none;
+  }
+  .hero-visual > img {
+    transform: none;
+  }
+}

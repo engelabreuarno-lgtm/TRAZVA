@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f4f2ed" />
+    <meta
+      name="description"
+      content="TRAZVA. Una selección de sneakers con carácter. Descubre la colección, encuentra tu talla y crea tu selección."
+    />
+    <title>La colección — TRAZVA</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body data-page="showroom">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="header"></header>
+    <noscript
+      ><p style="padding: 20px; text-align: center">
+        Activa JavaScript para explorar la colección y utilizar tu bolsa.
+      </p></noscript
+    >
+    <main id="contenido" class="wrap catalog-main">
+      <div class="page-heading">
+        <p class="eyebrow">EL ARCHIVO TRAZVA / VOL. 01</p>
+        <div class="heading-row">
+          <h1>La colección<span class="accent-dot">.</span></h1>
+          <p>
+            Clásicos de calle. Energía para correr.<br />Elige lo que va
+            contigo.
+          </p>
+        </div>
+      </div>
+      <div class="catalog-tools">
+        <div class="category-tabs" role="group" aria-label="Filtrar por estilo">
+          <button data-category="all" class="selected" aria-pressed="true">
+            Todos los pares</button
+          ><button data-category="Lifestyle" aria-pressed="false">
+            Lifestyle</button
+          ><button data-category="Running" aria-pressed="false">Running</button
+          ><button data-category="Sport" aria-pressed="false">Sport</button
+          ><button data-category="Skate" aria-pressed="false">Skate</button>
+        </div>
+        <label class="search-field"
+          ><span data-icon="search"></span
+          ><input
+            id="searchInput"
+            type="search"
+            placeholder="Busca tu próximo par"
+            aria-label="Buscar modelo o marca"
+        /></label>
+      </div>
+      <div class="collection-refine">
+        <label
+          >Marca<select id="catalogBrand">
+            <option value="">Todas las marcas</option>
+          </select></label
+        >
+        <label id="catalogUseField" hidden
+          >Entrenamiento<select id="catalogUse">
+            <option value="all">Cualquier entrenamiento</option>
+            <option value="daily">Rodaje diario</option>
+            <option value="long">Tirada larga</option>
+            <option value="speed">Entrenar rápido</option>
+            <option value="race">Competir</option>
+          </select></label
+        >
+        <p id="collectionHint">Una colección. Distintas formas de moverte.</p>
+        <button id="clearCatalog" class="text-link" type="button" hidden>
+          Limpiar filtros ×
+        </button>
+      </div>
+      <div class="catalog-meta">
+        <p id="resultCount" aria-live="polite"></p>
+        <div>
+          <label class="favorite-filter"
+            ><input type="checkbox" id="favToggle" /> Solo favoritos</label
+          ><label
+            ><span class="sr-only">Ordenar productos</span
+            ><select id="sortSelect">
+              <option value="default">Selección editorial</option>
+              <option value="asc">Precio: menor a mayor</option>
+              <option value="desc">Precio: mayor a menor</option>
+              <option value="name">Nombre: A–Z</option>
+              <option value="weight" data-running-sort hidden>
+                Menor peso publicado
+              </option>
+              <option value="drop" data-running-sort hidden>Menor drop</option>
+            </select></label
+          >
+        </div>
+      </div>
+      <div class="product-grid" id="catalogGrid"></div>
+      <p class="catalog-note">
+        Archivo lifestyle: precios ilustrativos en USD. Running: datos
+        oficiales, sin precio de venta. Guarda tus favoritos para volver a
+        ellos.
+      </p>
+    </main>
+    <footer id="footer"></footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

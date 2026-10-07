@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f4f2ed" />
+    <meta
+      name="description"
+      content="TRAZVA. Una selección de sneakers con carácter. Descubre la colección, encuentra tu talla y crea tu selección."
+    />
+    <title>Sneakers con carácter — TRAZVA</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body data-page="index">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="header"></header>
+    <noscript
+      ><p style="padding: 20px; text-align: center">
+        Activa JavaScript para explorar la colección y utilizar tu bolsa.
+      </p></noscript
+    >
+    <main id="contenido">
+      <section class="hero wrap hero-immersive">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="live-dot"></span> INDEPENDENT MOVEMENT CULTURE · VOL.
+            03
+          </p>
+          <h1>No sigas<br />los pasos.<br /><span>Deja huella.</span></h1>
+          <p class="hero-desc">
+            Para correr, caminar y vivir a tu ritmo.<br />Elige por estilo,
+            conoce los detalles y encuentra comodidad a tu manera.
+          </p>
+          <a class="button dark" href="showroom.html"
+            >Explorar la colección <span aria-hidden="true">↗</span></a
+          >
+          <div class="hero-bottom">
+            <span class="hero-index">EST. 2026</span
+            ><span>PARA LOS QUE CAMINAN<br />A SU PROPIO RITMO.</span
+            ><a
+              href="#seleccion"
+              aria-label="Descubrir la selección"
+              class="circle-link"
+              >↓</a
+            >
+          </div>
+        </div>
+        <div class="hero-visual hero-studio">
+          <div class="hero-image-top">
+            <span>TRAZVA / THE SNEAKER EDIT</span><span>TZ / 2026</span>
+          </div>
+          <span class="hero-wordmark" aria-hidden="true"
+            >MOVE<br />YOUR WAY.</span
+          ><span class="orbit-ring" aria-hidden="true"></span>
+          <div id="heroModelStage"></div>
+          <div
+            class="hero-model-picker"
+            role="group"
+            aria-label="Elige el modelo de portada"
+          >
+            <button
+              data-hero="101"
+              aria-label="Mostrar Air Jordan 1 en portada"
+              aria-pressed="true"
+            >
+              <span>01 / ICON</span></button
+            ><button
+              data-hero="102"
+              aria-label="Mostrar Air Zoom Pegasus 36 en portada"
+              aria-pressed="false"
+            >
+              <span>02 / PACE</span></button
+            ><button
+              data-hero="103"
+              aria-label="Mostrar Old Skool Ocean en portada"
+              aria-pressed="false"
+            >
+              <span>03 / FLOW</span>
+            </button>
+          </div>
+          <div class="hero-model-actions">
+            <span id="heroModelHint">UNA NUEVA PERSPECTIVA</span
+            ><button id="heroRotate" type="button" aria-pressed="false" hidden>
+              ↻ Girar
+            </button>
+          </div>
+          <button class="hero-product" data-product="101">
+            <span
+              ><small>UN ICONO QUE SIGUE CONTIGO</small
+              ><strong>Air Jordan 1 / Heritage</strong></span
+            ><span class="circle-link" aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </section>
+      <div
+        class="culture-strip"
+        aria-label="Diseño con carácter. Muévete a tu manera."
+      >
+        <div class="culture-track" aria-hidden="true">
+          <span
+            >NO SIGAS EL RITMO <b>✳</b> CREA EL TUYO <b>↗</b> TRAZVA STUDIO
+            <b>✳</b>&nbsp;</span
+          ><span
+            >NO SIGAS EL RITMO <b>✳</b> CREA EL TUYO <b>↗</b> TRAZVA STUDIO
+            <b>✳</b>&nbsp;</span
+          >
+        </div>
+      </div>
+      <section class="section wrap" id="seleccion">
+        <div class="section-top">
+          <div>
+            <p class="eyebrow">01 / LA SELECCIÓN</p>
+            <h2>Buenos pares.<br />Grandes historias.</h2>
+          </div>
+          <div class="section-aside">
+            <p>
+              Siluetas con historia. Estilo sin esfuerzo.<br />Encuentra el par
+              que va contigo.
+            </p>
+            <a class="text-link" href="showroom.html"
+              >Ver toda la colección <span>↗</span></a
+            >
+          </div>
+        </div>
+        <div class="product-grid" id="featuredGrid"></div>
+      </section>
+      <section class="brand-interlude wrap" aria-label="La filosofía de TRAZVA">
+        <div class="interlude-mark" aria-hidden="true">≋</div>
+        <div>
+          <p class="eyebrow">EL MOVIMIENTO TIENE FORMA</p>
+          <h2>Tu estilo.<br />Tus propias reglas.</h2>
+          <p>
+            Para los días sin plan y los caminos por descubrir. Pares con
+            carácter, elegidos para moverse contigo.
+          </p>
+          <a href="showroom.html" class="button light"
+            >Encuentra tu próximo par ↗</a
+          >
+        </div>
+        <span class="interlude-signature" aria-hidden="true"
+          >trazva / movement study</span
+        >
+      </section>
+      <section class="discovery wrap" id="tu-ritmo">
+        <div class="discovery-heading">
+          <p class="eyebrow">02 / ELIGE TU FRECUENCIA</p>
+          <h2>Un par.<br />Tu manera de estar.</h2>
+          <p>
+            No todos caminamos igual.<br />Encuentra una silueta que vaya
+            contigo.
+          </p>
+        </div>
+        <div class="style-paths">
+          <a
+            class="style-path path-street"
+            href="showroom.html?category=Lifestyle"
+            ><span class="path-number">01 / EVERYDAY ICONS</span>
+            <div>
+              <h3>La calle<br />es tuya.</h3>
+              <span>Lifestyle <b>↗</b></span>
+            </div></a
+          ><a class="style-path path-run" href="showroom.html?category=Running"
+            ><span class="path-number">02 / ALWAYS IN MOTION</span>
+            <div>
+              <h3>Un paso<br />más allá.</h3>
+              <span>Running <b>↗</b></span>
+            </div></a
+          ><a class="style-path path-skate" href="showroom.html?category=Skate"
+            ><span class="path-number">03 / YOUR OWN RULES</span>
+            <div>
+              <h3>Sin pedir<br />permiso.</h3>
+              <span>Skate <b>↗</b></span>
+            </div></a
+          >
+        </div>
+      </section>
+      <section class="fit-finder wrap" id="encuentra-tu-par">
+        <div>
+          <p class="eyebrow">03 / TE AYUDAMOS A ELEGIR</p>
+          <h2>Menos vueltas.<br />Más tú.</h2>
+          <p>
+            Cuéntanos cómo te mueves.<br />Descubre opciones y compara lo que
+            importa.
+          </p>
+        </div>
+        <form id="finderForm">
+          <fieldset>
+            <legend>01 / ¿Cómo te mueves?</legend>
+            <div class="finder-options">
+              <label
+                ><input
+                  type="radio"
+                  name="style"
+                  value="Lifestyle"
+                  checked
+                /><span>De calle</span></label
+              ><label
+                ><input type="radio" name="style" value="Running" /><span
+                  >Para correr</span
+                ></label
+              ><label
+                ><input type="radio" name="style" value="Skate" /><span
+                  >A mi ritmo</span
+                ></label
+              >
+            </div>
+          </fieldset>
+          <label class="finder-goal" id="finderGoalField" hidden
+            >02 / ¿Cómo quieres correr?
+            <select id="finderGoal" name="goal">
+              <option value="daily">Rodajes diarios</option>
+              <option value="long">Sumar kilómetros</option>
+              <option value="speed">Entrenar rápido</option>
+              <option value="race">Preparar una carrera</option>
+            </select>
+          </label>
+          <label class="finder-budget" for="finderBudget"
+            >02 / Importe de demostración
+            <strong id="budgetLabel">Hasta $220</strong></label
+          ><input
+            type="range"
+            id="finderBudget"
+            name="budget"
+            min="80"
+            max="220"
+            step="5"
+            value="220"
+          /><button class="button dark full" type="submit">
+            Encuentra mi par <span>↗</span>
+          </button>
+          <div id="finderResult" tabindex="-1" aria-live="polite"></div>
+        </form>
+      </section>
+      <section class="section wrap philosophy" id="filosofia">
+        <div>
+          <p class="eyebrow">04 / EL CRITERIO TRAZVA</p>
+          <h2>Lo esencial.<br />Extraordinario.</h2>
+        </div>
+        <div class="principles">
+          <article>
+            <span>01</span>
+            <div>
+              <h3>Calidad en los detalles</h3>
+              <p>
+                Materiales, acabados y construcción. Mira de cerca cada par y
+                consulta la información de su marca.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span>02</span>
+            <div>
+              <h3>La comodidad es personal</h3>
+              <p>
+                Empieza por el uso que le darás. Revisa la talla, el ajuste y la
+                amortiguación antes de decidir.
+              </p>
+            </div>
+          </article>
+          <article>
+            <span>03</span>
+            <div>
+              <h3>Elige con información</h3>
+              <p>
+                Guías de talla, datos del fabricante y comparación de
+                características. Más claridad para encontrar el par que va
+                contigo.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="collection-banner wrap">
+        <p class="eyebrow">TU PRÓXIMO PAR ESTÁ AQUÍ</p>
+        <a href="showroom.html"
+          >Hazlo tuyo. <span aria-hidden="true">↗</span></a
+        >
+        <div>
+          <span>ELIGE CON INTENCIÓN.</span><span>CAMINA CON ACTITUD.</span>
+        </div>
+      </section>
+    </main>
+    <footer id="footer"></footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+[
+  {
+    "file": "jordan-one.glb",
+    "title": "Air Jordan 1",
+    "author": "makoto (https://sketchfab.com/lu87813)",
+    "source": "https://sketchfab.com/3d-models/air-jordan-1-a4b434181fbb48008ad460722fd53725",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Compresión Draco de geometría; texturas WebP con resolución máxima 2048 px; eliminación de datos redundantes; renders de portada. No se modifica la forma del tenis.",
+    "original_sha256": "eaccb9175b0850a250daa080adc48f41b3ce8f1edccfdd576f775aa926dffef5",
+    "distributed_sha256": "1752e220e2bd08b4e873f4ff4a70b995088ff23cc791d243ca0a739a40785b12"
+  },
+  {
+    "file": "pegasus36.glb",
+    "title": "Nike Air Zoom Pegasus 36",
+    "author": "quaz30 (https://sketchfab.com/quaz30)",
+    "source": "https://sketchfab.com/3d-models/nike-air-zoom-pegasus-36-00fd99e778c244c3bd3b65f99dad7cb2",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Compresión Draco de geometría; texturas WebP con resolución máxima 2048 px; eliminación de datos redundantes; renders de portada. No se modifica la forma del tenis.",
+    "original_sha256": "07a010f99ee69b8a79217de20d6415079742383896e744914323e6113a72d0fe",
+    "distributed_sha256": "efca0a732b32f1e3c086a82c884cf5dbb0f0750411f2304945912bd459b7cf1c"
+  },
+  {
+    "file": "vans-blue.glb",
+    "title": "Blue Sneaker",
+    "author": "Meerschaum Digital (https://sketchfab.com/meerschaumdigital)",
+    "source": "https://sketchfab.com/3d-models/blue-sneaker-75c97069e89c4d84ab36922b77a97678",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Compresión Draco de geometría; texturas WebP con resolución máxima 2048 px; eliminación de datos redundantes; renders de portada. No se modifica la forma del tenis.",
+    "original_sha256": "2a57a5369f5f3cdccd9d0fa9b0a8caf4a2a32bc699a42138e7d751739249793d",
+    "distributed_sha256": "d307d2f7789e254144de7294b1d228e8f5b1fdb25dc5ab3dde37432406de3242"
+  },
+  {
+    "file": "converse.glb",
+    "title": "Converse — FREE",
+    "author": "Yaroslav Karas (https://sketchfab.com/yakaras)",
+    "source": "https://sketchfab.com/3d-models/converse-free-bc791439d26f4dd9974819c168e12385",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Compresión Draco de geometría; texturas WebP con resolución máxima 2048 px; eliminación de datos redundantes; renders de portada. No se modifica la forma del tenis.",
+    "original_sha256": "eba7d01c5bc101a8314dd002e0a26fcd28c483f8450aead1d785028320f63512",
+    "distributed_sha256": "11354844d714af4aec037540874b57dde39289340edd9334288d0ac1da803c36"
+  },
+  {
+    "file": "sole.glb",
+    "title": "Sneaker",
+    "author": "fec00752 (https://sketchfab.com/fec00752)",
+    "source": "https://sketchfab.com/3d-models/sneaker-727370d6df3e47bfabc30ac1b10fb445",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Compresión Draco de geometría; texturas WebP con resolución máxima 2048 px; eliminación de datos redundantes; renders de portada. No se modifica la forma del tenis.",
+    "original_sha256": "be74246f296c26672c473e940e47cac83bb9e36fea18993158054f00e14682cd",
+    "distributed_sha256": "ebe9767fedd1bf93b382da4512e4aaa3eb0975d715df4d766f82061507479209"
+  },
+  {
+    "file": "nike-shoe.glb",
+    "title": "Nike Shoe",
+    "author": "MamaTeeku (https://sketchfab.com/MamaTeeku)",
+    "source": "https://sketchfab.com/3d-models/nike-shoe-d796cf8784fc46169e3ac70375e0e8a8",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Compresión Draco de geometría; texturas WebP con resolución máxima 2048 px; eliminación de datos redundantes; renders de portada. No se modifica la forma del tenis.",
+    "original_sha256": "670c5caae50edfcdbde24c73dcf4de94024098106616886dce51d3efc2230159",
+    "distributed_sha256": "25635ecab7b07adae013b5efcb4c31dad39b84648caa39988bc379d412425d9b"
+  },
+  {
+    "file": "converse-white.glb",
+    "title": "Converse all star Chuck Taylor white",
+    "author": "alban (https://sketchfab.com/alban)",
+    "source": "https://sketchfab.com/3d-models/converse-all-star-chuck-taylor-white-6b7fa321b838491fbea2a6afaffe85a4",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Compresión Draco de geometría; texturas WebP con resolución máxima 2048 px; eliminación de datos redundantes; renders de portada. No se modifica la forma del tenis.",
+    "original_sha256": "47afaad09e26246023e2be115bae0f05fc114c66e62bbdf75bdb5cd5d2bdc72c",
+    "distributed_sha256": "0cb83006a63dce5297b8697820a2a4ea02c4079297d34a9be3862f1b10b5b475"
+  },
+  {
+    "file": "studio-runner.glb",
+    "title": "Materials Variants Shoe",
+    "author": "Shopify",
+    "source": "https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/MaterialsVariantsShoe",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Compresión Draco de geometría; texturas WebP con resolución máxima 2048 px; eliminación de datos redundantes; renders de portada. No se modifica la forma del tenis.",
+    "original_sha256": "e1d7cb190382111e5a5b37b51e9a7f007f7eb2ab1b6185e0188e8d0a0d1265a7",
+    "distributed_sha256": "d25eb9ea6be1fd54e7c73dd2c6a27b003bd912ac9a1ef42a68a9ee4fa6db861d"
+  }
+]
