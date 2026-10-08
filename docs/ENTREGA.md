@@ -1,6 +1,13 @@
-# TRAZVA — colección unificada (3.2.0)
+# TRAZVA — modelos en las tarjetas de running (3.3.0)
 
-7 de octubre de 2026.
+8 de octubre de 2026.
+
+- Los cuatro pares de running muestran su modelo directamente en la portada de la tarjeta. Marca, nombre, color, favoritos, comparación y guardado quedan debajo.
+- Mismas proporciones y columnas que los demás productos, sin portadas tipográficas ni fotografías de sustitución.
+- Carga próxima a la pantalla, de dos modelos externos a la vez; pausa fuera de vista y limpieza al cambiar los filtros.
+- Cinco pruebas nuevas de interfaz y ciclo de vida con SDK simulado; once pruebas automatizadas en total.
+
+Se conservan las mejoras de la colección unificada:
 
 - Una sola barra de desplazamiento.
 - Una sola colección: lifestyle, sport, skate y running.

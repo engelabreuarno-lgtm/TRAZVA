@@ -48,6 +48,53 @@
 .product-image .model-preview {
   transform: scale(0.9);
 }
+/* Keep the full provider frame and its credits visible; no poster fallback. */
+.product-image > .external-preview {
+  position: absolute;
+  inset: 0;
+  transform: none;
+}
+.external-preview iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  visibility: hidden;
+}
+.external-preview.preview-ready iframe {
+  visibility: visible;
+}
+.running-product-card .product-color {
+  line-height: 1.5;
+}
+.running-card-open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 14px;
+}
+.running-card-open .text-link {
+  min-height: 44px;
+  font-size: 12px;
+}
+.running-card-open .favorite-button {
+  position: static;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+}
+.running-product-card .run-card-actions {
+  flex-wrap: wrap;
+  gap: 0 14px;
+  margin-top: 8px;
+  border-top: 1px solid var(--line);
+}
+.running-product-card .run-card-actions button {
+  min-height: 44px;
+  font-size: 11px;
+}
 .product-image:has(.preview-ready) {
   background-image: radial-gradient(
     ellipse at 50% 60%,

@@ -21,7 +21,8 @@ Para editar solo el frontend, se puede servir `web/` con HTTP. El guardado requi
 | web/ | Fuente HTML, CSS, módulos, imágenes, modelos y visor local |
 | web/js/data/catalog.js | Archivo lifestyle y unión del catálogo |
 | web/js/data/running.js | Investigación de diez fichas; exporta únicamente cuatro con modelo 3D |
-| web/js/features/model-preview.js | Vistas GLB locales, carga visible, pausa y estados de error |
+| web/js/features/model-preview.js | Miniaturas locales y externas; visibilidad y limpieza al filtrar |
+| web/js/features/external-preview.js | Carga de modelos externos de dos en dos y pausa fuera de pantalla |
 | web/css/dimensional.css | Presentación compartida sin fotografías de producto |
 | web/js/features/running.js | Fichas running, comparación y guardado desde la colección |
 | web/js/features/catalog-query.js | Filtros y orden compartidos, sin dependencias del DOM |
@@ -45,7 +46,9 @@ Para editar solo el frontend, se puede servir `web/` con HTTP. El guardado requi
 - Consultas guardadas con referencia, sin correo saliente ni pedido.
 - Validación de servidor, autenticación, separación por usuario y comprobación de origen.
 - Guardado idempotente y errores recuperables conservando el formulario.
-- Los visores externos se cargan al abrir su ficha y desaparecen al cerrarla.
+- Las tarjetas running muestran su modelo en la portada y el nombre debajo, con el mismo formato que la colección. El visor externo conserva sus controles y créditos.
+- Los modelos externos se cargan al acercarse al área visible, con un máximo de dos inicializaciones simultáneas. Se pausan fuera de pantalla, con una ficha abierta o al ocultar la pestaña; se eliminan al filtrar o retirar la tarjeta.
+- La ficha conserva su visor ampliado y el reintento de carga. Los resultados pequeños del asesor abren la ficha; no anidan un visor interactivo dentro de un botón.
 - Las miniaturas locales son renders GLB; se cargan al acercarse al área visible y giran con hover o foco, respetando movimiento reducido.
 - Si falla el visor externo, el panel se compacta con reintento y enlace al proveedor; no muestra una foto de sustitución.
 - Movimiento reducido, navegación por teclado y diseño adaptable.
@@ -69,4 +72,4 @@ TRAZVA es la nueva identidad de trabajo. No se ha registrado una empresa o marca
 
 ## Última revisión
 
-Consulta `docs/PRUEBAS.md` para distinguir las verificaciones actuales de las pruebas históricas. La comprobación de catálogo y las pruebas de D1 pasan. Se revisaron filtros, favoritos, comparación, menú y selector con interacciones DOM. El perfil de previsualización no admite este servidor, por lo que no se afirma una revisión visual nueva. La publicación se realiza sobre el mismo proyecto privado mediante su flujo de versiones.
+Consulta `docs/PRUEBAS.md` para distinguir las verificaciones actuales de las pruebas históricas. Las once pruebas cubren catálogo, D1 y el ciclo de carga/pausa/limpieza de las miniaturas. Se revisaron filtros, favoritos, comparación, menú y selector con interacciones DOM. Los ensayos de miniaturas usan una API de Sketchfab simulada: no verifican el renderizado del proveedor. El perfil de previsualización no admite este servidor, por lo que no se afirma una revisión visual nueva. La publicación se realiza sobre el mismo proyecto privado mediante su flujo de versiones.

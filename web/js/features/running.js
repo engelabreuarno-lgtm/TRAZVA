@@ -1,5 +1,6 @@
 import { getFavorites } from "../state/store.js";
 import { attachExternalViewer } from "./external-viewer.js";
+import { modelPreview } from "./model-preview.js";
 import { runningProducts, runUses } from "../data/running.js";
 import { $, $$, esc, icon } from "../core/dom.js";
 import { openDialog } from "../ui/dialog.js";
@@ -31,17 +32,19 @@ export async function loadSelections() {
   syncSaved();
   return data;
 }
-export function runningCard(p) {
+export function runningCard(p, index = 0) {
   if (!p.embed && !p.model) return "";
-  const index = runningProducts.findIndex((item) => item.id === p.id) + 1;
   const favorite = getFavorites().includes(p.id);
-  return `<article class="run-card run-card-dimensional" style="--run-color:${p.bg}">
-    <div class="run-card-top"><span class="run-card-index">${String(index).padStart(2, "0")} / RUNNING</span><button class="run-favorite icon-button" data-favorite="${p.id}" aria-pressed="${favorite}" aria-label="${favorite ? "Quitar de" : "Añadir a"} favoritos: ${p.name}">${icon("heart")}</button></div>
-    <p class="eyebrow">${p.brand}</p><h3><button class="run-card-title" data-product="${p.id}">${p.name}</button></h3>
-    <p class="run-use">${p.uses.map((u) => runUses[u]).join(" · ")}</p>
-    <div class="run-mini-specs"><span><b>${p.weight}</b> g</span><span><b>${p.drop}</b> mm drop</span><span>${p.foam}</span></div>
-    <button class="run-open-model" data-product="${p.id}"><span aria-hidden="true">◈</span> Ver detalles <small aria-hidden="true">↗</small></button>
-    <div class="run-card-actions"><button data-compare="${p.id}" aria-pressed="${comparing.includes(p.id)}">${comparing.includes(p.id) ? "✓ Comparando" : "+ Comparar"}</button><button data-save-run="${p.id}" aria-pressed="${selected.has(p.id)}">${saveLabel(p.id)}</button></div>
+  return `<article class="product-card running-product-card" style="--card-order:${index % 6}">
+    <div class="product-image" style="background:${p.bg}">${modelPreview(p, { external: true })}</div>
+    <div class="product-info">
+      <div class="product-meta"><span>${esc(p.brand.toUpperCase())}</span><span>RUNNING</span></div>
+      <div class="product-title-row"><h3><button data-product="${p.id}">${esc(p.name)}</button></h3></div>
+      <p class="product-color"><span class="color-dot" style="background:${p.hex}"></span>${esc(p.color)}</p>
+      <p class="run-use">${p.uses.map((u) => runUses[u]).join(" · ")}</p>
+      <div class="running-card-open"><button class="text-link" data-product="${p.id}">Ver detalles <span aria-hidden="true">↗</span></button><button class="favorite-button" data-favorite="${p.id}" aria-pressed="${favorite}" aria-label="${favorite ? "Quitar de" : "Añadir a"} favoritos: ${esc(p.name)}">${icon("heart")}</button></div>
+      <div class="run-card-actions"><button data-compare="${p.id}" aria-pressed="${comparing.includes(p.id)}">${comparing.includes(p.id) ? "✓ Comparando" : "+ Comparar"}</button><button data-save-run="${p.id}" aria-pressed="${selected.has(p.id)}">${saveLabel(p.id)}</button></div>
+    </div>
   </article>`;
 }
 

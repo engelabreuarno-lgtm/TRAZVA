@@ -9,7 +9,7 @@ import { toast } from "../ui/feedback.js";
 import { products } from "../data/catalog.js";
 
 export function card(p, index = 0) {
-  if (p.running) return runningCard(p);
+  if (p.running) return runningCard(p, index);
   const on = getFavorites().includes(p.id);
   return `<article class="product-card" style="--card-order:${index % 6}"><div class="product-image" style="background:${p.bg}"><button class="product-open" data-product="${p.id}" aria-label="Ver ${esc(p.name)}, ${money(p.price)}">${modelPreview(p)}<span class="product-tag">${p.tag}</span><span class="quick-view">Ver detalles <span aria-hidden="true">↗</span></span></button><button class="favorite-button" data-favorite="${p.id}" aria-label="${on ? "Quitar de" : "Añadir a"} favoritos: ${esc(p.name)}" aria-pressed="${on}">${icon("heart")}</button></div><div class="product-info"><div class="product-meta"><span>${p.brand.toUpperCase()}</span><span>${p.category.toUpperCase()}</span></div><div class="product-title-row"><h3><button data-product="${p.id}">${p.name}</button></h3><span class="product-price">${money(p.price)}<small>USD · demo</small></span></div><p class="product-color"><span class="color-dot" style="background:${p.hex}"></span>${p.color}</p></div></article>`;
 }

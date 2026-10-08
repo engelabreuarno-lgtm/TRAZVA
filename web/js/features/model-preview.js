@@ -1,16 +1,23 @@
 import { products } from "../data/catalog.js";
 import { motionEnabled } from "../core/motion.js";
 import { loadViewer } from "./viewer.js";
+import { createExternalPreview } from "./external-preview.js";
 
-// A real GLB render, never an image substitute. The observer also covers filtered grids.
-export function modelPreview(p) {
-  if (!p.model) return "";
-  return `<span class="model-preview" data-model-preview="${p.id}" aria-hidden="true"><span class="preview-status">Preparando tu par…</span></span>`;
+// External embeds are opt-in: an interactive iframe cannot live inside a button.
+export function modelPreview(p, { external = false } = {}) {
+  if (!p.model && !(external && p.embed)) return "";
+  const embedded = !p.model && p.embed;
+  return `<span class="model-preview${embedded ? " external-preview" : ""}" data-model-preview="${p.id}"${embedded ? "" : ' aria-hidden="true"'}><span class="preview-status">Preparando tu par…</span></span>`;
 }
 
 export function initModelPreviews() {
   const states = new Map();
   const rotation = (state) => {
+    state.external?.setActive(
+      state.active &&
+        !document.hidden &&
+        !document.body.classList.contains("locked"),
+    );
     if (state.viewer)
       state.viewer.autoRotate = Boolean(
         state.active &&
@@ -24,8 +31,13 @@ export function initModelPreviews() {
     const product = products.find(
       (p) => p.id === Number(host.dataset.modelPreview),
     );
-    if (!product?.model || state.started) return;
+    if ((!product?.model && !product?.embed) || state.started) return;
     state.started = true;
+    if (!product.model && product.embed) {
+      state.external = createExternalPreview(product, host);
+      rotation(state);
+      return;
+    }
     const status = host.querySelector(".preview-status");
     const fail = () => {
       if (!host.isConnected) return;
@@ -99,6 +111,7 @@ export function initModelPreviews() {
         clearTimeout(state.timer);
         observer.unobserve(host);
         state.viewer?.remove();
+        state.external?.dispose();
         states.delete(host);
       }
     }

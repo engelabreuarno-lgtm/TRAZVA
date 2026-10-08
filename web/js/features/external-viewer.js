@@ -1,5 +1,5 @@
 let sdkPromise;
-function loadSDK() {
+export function loadSketchfabSDK() {
   if (window.Sketchfab) return Promise.resolve(window.Sketchfab);
   if (sdkPromise) return sdkPromise;
   sdkPromise = new Promise((resolve, reject) => {
@@ -65,7 +65,7 @@ export function attachExternalViewer(product, dialog) {
     }
     timer = setTimeout(fail, 45000);
     try {
-      const Sketchfab = await loadSDK();
+      const Sketchfab = await loadSketchfabSDK();
       if (closed || attempt !== generation) return;
       iframe = document.createElement("iframe");
       iframe.title = `Modelo 3D de ${product.brand} ${product.name}, por ${product.credit.author}`;
