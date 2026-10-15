@@ -21,10 +21,10 @@ export function initModelPreviews() {
     if (state.viewer)
       state.viewer.autoRotate = Boolean(
         state.active &&
-        state.hover &&
-        motionEnabled() &&
-        !document.hidden &&
-        !document.body.classList.contains("locked"),
+          state.hover &&
+          motionEnabled() &&
+          !document.hidden &&
+          !document.body.classList.contains("locked"),
       );
   };
   async function mount(host, state) {
@@ -148,5 +148,6 @@ export function initModelPreviews() {
   });
   document.addEventListener("solevault:motion", () => states.forEach(rotation));
   document.addEventListener("visibilitychange", () => states.forEach(rotation));
+  document.addEventListener("trazva:privacy", () => states.forEach(rotation));
   scan();
 }

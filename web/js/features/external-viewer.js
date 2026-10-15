@@ -1,5 +1,8 @@
+import { externalAllowed } from "../state/consent.js";
+import { openPrivacySettings } from "../ui/privacy.js";
 let sdkPromise;
 export function loadSketchfabSDK() {
+  if (!externalAllowed()) return Promise.reject(new Error("CONSENT_REQUIRED"));
   if (window.Sketchfab) return Promise.resolve(window.Sketchfab);
   if (sdkPromise) return sdkPromise;
   sdkPromise = new Promise((resolve, reject) => {
@@ -42,6 +45,10 @@ export function attachExternalViewer(product, dialog) {
     closed = false,
     generation = 0;
   button.addEventListener("click", async () => {
+    if (!externalAllowed()) {
+      openPrivacySettings();
+      return;
+    }
     const attempt = ++generation;
     waiting.hidden = false;
     mount.closest(".run-visual").classList.remove("is-unavailable");
@@ -78,7 +85,9 @@ export function attachExternalViewer(product, dialog) {
       client.init(product.embed, {
         autostart: 1,
         autospin: 0,
-        preload: 1,
+        preload: 0,
+        dnt: 1,
+        animation_autoplay: 0,
         success(api) {
           if (closed || attempt !== generation) return;
           api.addEventListener("viewerready", () => {
@@ -99,7 +108,27 @@ export function attachExternalViewer(product, dialog) {
       fail();
     }
   });
-  button.click();
+  const syncPrivacy = () => {
+    if (closed) return;
+    if (externalAllowed()) {
+      if (!iframe && !button.disabled) button.click();
+      return;
+    }
+    ++generation;
+    clearTimeout(timer);
+    iframe?.remove();
+    iframe = null;
+    mount.classList.remove("external-ready");
+    mount.closest(".run-visual").classList.add("is-unavailable");
+    waiting.hidden = true;
+    button.hidden = false;
+    button.disabled = false;
+    button.textContent = "Configurar privacidad";
+    status.textContent =
+      "Permite los modelos externos de Sketchfab para cargar este par.";
+  };
+  document.addEventListener("trazva:privacy", syncPrivacy);
+  syncPrivacy();
   dialog.addEventListener(
     "close",
     () => {
@@ -107,6 +136,7 @@ export function attachExternalViewer(product, dialog) {
       ++generation;
       clearTimeout(timer);
       iframe?.remove();
+      document.removeEventListener("trazva:privacy", syncPrivacy);
     },
     { once: true },
   );

@@ -1,41 +1,19 @@
+import { json, fail, readBody } from "./http.js";
+import { accountRoute, publicStore } from "./account.js";
 import { database } from "./db.js";
 import { runningProducts } from "../web/js/data/running.js";
 const ids = new Set(runningProducts.map((p) => p.id));
-const json = (data, status = 200) =>
-  Response.json(data, {
-    status,
-    headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" },
-  });
-const fail = (message, status) => json({ error: message }, status);
-async function readBody(request) {
-  if (!request.headers.get("content-type")?.includes("application/json"))
-    throw new Error("JSON_REQUIRED");
-  const reader = request.body?.getReader();
-  if (!reader) throw new Error("INVALID_BODY");
-  let bytes = 0,
-    chunks = [];
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    bytes += value.byteLength;
-    if (bytes > 12000) {
-      await reader.cancel();
-      throw new Error("BODY_TOO_LARGE");
-    }
-    chunks.push(value);
-  }
-  const body = new Uint8Array(bytes);
-  let offset = 0;
-  for (const chunk of chunks) {
-    body.set(chunk, offset);
-    offset += chunk.length;
-  }
-  return JSON.parse(new TextDecoder().decode(body));
-}
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
+    if (url.pathname === "/api/store" && request.method === "GET") {
+      try {
+        return json(await publicStore(database(env)));
+      } catch {
+        return fail("Información temporalmente no disponible.", 503);
+      }
+    }
     // These headers are supplied by the private Sites authentication boundary.
     const user = request.headers.get("oai-authenticated-user-id");
     if (!user) return fail("Inicia sesión para abrir tu estudio.", 401);
@@ -44,6 +22,8 @@ export default {
       return fail("Origen no permitido.", 403);
     try {
       const db = database(env);
+      const account = await accountRoute(request, env, db, user);
+      if (account) return account;
       if (url.pathname === "/api/studio" && request.method === "GET") {
         const results = await db.batch([
           db
@@ -57,7 +37,10 @@ export default {
             )
             .bind(user),
         ]);
-        return json({ selections: results[0].results, requests: results[1].results });
+        return json({
+          selections: results[0].results,
+          requests: results[1].results,
+        });
       }
       const selection = url.pathname.match(/^\/api\/selections\/(\d+)$/);
       if (selection && ["PUT", "DELETE"].includes(request.method)) {
@@ -72,7 +55,9 @@ export default {
             .run();
         else
           await db
-            .prepare("DELETE FROM selections WHERE user_id = ? AND product_id = ?")
+            .prepare(
+              "DELETE FROM selections WHERE user_id = ? AND product_id = ?",
+            )
             .bind(user, id)
             .run();
         return json({ saved: request.method === "PUT", productId: id });
@@ -84,7 +69,9 @@ export default {
         const fields = ["name", "email", "subject", "message"];
         if (!fields.every((key) => typeof input[key] === "string"))
           return fail("Completa todos los campos.", 400);
-        const [name, email, subject, message] = fields.map((key) => input[key].trim());
+        const [name, email, subject, message] = fields.map((key) =>
+          input[key].trim(),
+        );
         if (
           name.length < 2 ||
           name.length > 100 ||
@@ -95,7 +82,10 @@ export default {
           message.length < 10 ||
           message.length > 2000
         )
-          return fail("Revisa el nombre, correo y mensaje (10–2000 caracteres).", 400);
+          return fail(
+            "Revisa el nombre, correo y mensaje (10–2000 caracteres).",
+            400,
+          );
         if (typeof input.id !== "string" || !/^[0-9a-f-]{36}$/i.test(input.id))
           return fail("Referencia inválida.", 400);
         const existing = await db
@@ -118,7 +108,15 @@ export default {
           .prepare(
             "INSERT INTO requests (id,user_id,name,email,subject,message,created_at) VALUES (?,?,?,?,?,?,?)",
           )
-          .bind(input.id, user, name, email, subject, message, new Date().toISOString())
+          .bind(
+            input.id,
+            user,
+            name,
+            email,
+            subject,
+            message,
+            new Date().toISOString(),
+          )
           .run();
         return json({ id: input.id, saved: true }, 201);
       }
@@ -134,7 +132,9 @@ export default {
     } catch (error) {
       if (
         error instanceof SyntaxError ||
-        ["JSON_REQUIRED", "INVALID_BODY", "BODY_TOO_LARGE"].includes(error.message)
+        ["JSON_REQUIRED", "INVALID_BODY", "BODY_TOO_LARGE"].includes(
+          error.message,
+        )
       )
         return fail("El formulario no tiene un formato válido.", 400);
       console.error("TRAZVA API unavailable", error.message);

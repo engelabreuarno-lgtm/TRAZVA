@@ -47,7 +47,7 @@ Para editar solo el frontend, se puede servir `web/` con HTTP. El guardado requi
 - Validación de servidor, autenticación, separación por usuario y comprobación de origen.
 - Guardado idempotente y errores recuperables conservando el formulario.
 - Las tarjetas running muestran su modelo en la portada y el nombre debajo, con el mismo formato que la colección. El visor externo conserva sus controles y créditos.
-- Los modelos externos se cargan al acercarse al área visible, con un máximo de dos inicializaciones simultáneas. Se pausan fuera de pantalla, con una ficha abierta o al ocultar la pestaña; se eliminan al filtrar o retirar la tarjeta.
+- Los modelos externos solo se cargan con permiso de contenido externo y al acercarse al área visible, con un máximo de dos inicializaciones simultáneas. Se pausan fuera de pantalla, con una ficha abierta o al ocultar la pestaña; se eliminan al filtrar o retirar la tarjeta.
 - La ficha conserva su visor ampliado y el reintento de carga. Los resultados pequeños del asesor abren la ficha; no anidan un visor interactivo dentro de un botón.
 - Las miniaturas locales son renders GLB; se cargan al acercarse al área visible y giran con hover o foco, respetando movimiento reducido.
 - Si falla el visor externo, el panel se compacta con reintento y enlace al proveedor; no muestra una foto de sustitución.
@@ -72,4 +72,16 @@ TRAZVA es la nueva identidad de trabajo. No se ha registrado una empresa o marca
 
 ## Última revisión
 
-Consulta `docs/PRUEBAS.md` para distinguir las verificaciones actuales de las pruebas históricas. Las once pruebas cubren catálogo, D1 y el ciclo de carga/pausa/limpieza de las miniaturas. Se revisaron filtros, favoritos, comparación, menú y selector con interacciones DOM. Los ensayos de miniaturas usan una API de Sketchfab simulada: no verifican el renderizado del proveedor. El perfil de previsualización no admite este servidor, por lo que no se afirma una revisión visual nueva. La publicación se realiza sobre el mismo proyecto privado mediante su flujo de versiones.
+Consulta `docs/PRUEBAS.md` para distinguir las verificaciones actuales de las pruebas históricas. Las 19 pruebas cubren catálogo, D1, perfiles, permisos de administración, exportación y borrado, consentimiento y el ciclo de las miniaturas. Se revisaron filtros, favoritos, comparación, menú y selector con interacciones DOM. Los ensayos de miniaturas usan una API de Sketchfab simulada: no verifican el renderizado del proveedor. El perfil de previsualización no admite este servidor, por lo que no se afirma una revisión visual nueva. La publicación se realiza sobre el mismo proyecto privado mediante su flujo de versiones.
+
+## Cuenta, privacidad y transferencias — 3.4.0
+
+- `iniciar-sesion.html` utiliza el inicio de sesión nativo de ChatGPT Sites; `registro.html` crea un perfil de TRAZVA asociado a esa identidad. No hay contraseña adicional ni autenticación simulada.
+- `cuenta.html` permite editar el nombre, descargar los datos y borrar perfil, selecciones y consultas de ese usuario. No elimina la cuenta del proveedor ni datos comerciales.
+- `privacidad.html`, `terminos.html`, `cookies.html` y `envios-cambios.html` describen las funciones reales de prelanzamiento. Identidad comercial, contacto y país se completan desde la administración. Revisión legal pendiente antes de aceptar ventas.
+- El permiso de contenido externo está desactivado por defecto y vence tras 180 días. Rechazarlo bloquea el SDK y los iframes; retirarlo elimina los visores activos. No se añaden publicidad ni analítica.
+- `administracion.html` configura identidad comercial y banco/titular/tipo/número/moneda/instrucciones. Solo permite la identidad autenticada cuyo correo coincide con `TRAZVA_ADMIN_EMAIL`, configurado en el entorno del servidor. Sin esa variable, el acceso administrativo queda denegado.
+- Los datos bancarios se guardan en D1 y permanecen privados: no salen en `/api/store`, la exportación del usuario ni en el catálogo. Guardarlos no activa cobros.
+- Migración aditiva `0001_wandering_flatman.sql`: tablas `profiles` y `store_settings`. No modificar la migración previa. Las pruebas usan datos ficticios y base local aislada.
+
+La configuración de la identidad administradora no modifica quién puede entrar al Site: se conserva su acceso privado. No hay servicio de contraseñas, verificación de transferencias, pedidos reales ni correos automáticos.

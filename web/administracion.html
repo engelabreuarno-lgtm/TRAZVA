@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f4f2ed" />
+    <meta
+      name="description"
+      content="Administrar tienda. Información y servicios de TRAZVA."
+    />
+    <title>Administrar tienda — TRAZVA</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body data-page="admin">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="header"></header>
+    <main id="contenido" class="wrap account-page">
+      <header class="account-heading">
+        <p class="eyebrow">ADMINISTRACIÓN / ACCESO RESTRINGIDO</p>
+        <h1>Los detalles<br />de tu tienda.</h1>
+        <p>Configura la identidad comercial y prepara las transferencias.</p>
+      </header>
+      <p id="adminStatus" role="status">Verificando permisos…</p>
+      <form id="storeForm" class="account-form" hidden>
+        <div class="account-grid">
+          <fieldset class="account-panel">
+            <legend>01 / Información comercial</legend>
+            <h2>Quién está detrás.</h2>
+            <p>
+              Estos campos aparecerán en las páginas legales. Completa solo
+              datos que puedan publicarse.
+            </p>
+            <label
+              >Nombre legal o razón social<input
+                name="legalName"
+                maxlength="150"
+                type="text"
+                autocomplete="off" /></label
+            ><label
+              >Correo de contacto y privacidad<input
+                name="contactEmail"
+                maxlength="254"
+                type="email"
+                autocomplete="off" /></label
+            ><label
+              >Dirección comercial<input
+                name="address"
+                maxlength="250"
+                type="text"
+                autocomplete="off" /></label
+            ><label
+              >País de operación<input
+                name="country"
+                maxlength="80"
+                type="text"
+                autocomplete="off" /></label
+            ><label
+              >Identificación fiscal (si corresponde)<input
+                name="taxId"
+                maxlength="40"
+                type="text"
+                autocomplete="off"
+            /></label>
+          </fieldset>
+          <fieldset class="account-panel">
+            <legend>02 / Transferencias</legend>
+            <h2>Datos bancarios.</h2>
+            <p>
+              Solo visibles para la administración. Guardarlos no activa pagos
+              ni los publica en el catálogo.
+            </p>
+            <label
+              >Banco<input
+                name="bankName"
+                maxlength="100"
+                type="text"
+                autocomplete="off" /></label
+            ><label
+              >Titular de la cuenta<input
+                name="accountHolder"
+                maxlength="150"
+                type="text"
+                autocomplete="off" /></label
+            ><label
+              >Número de cuenta o IBAN<input
+                name="accountNumber"
+                maxlength="40"
+                type="text"
+                autocomplete="off"
+            /></label>
+            <div class="account-grid compact">
+              <label
+                >Tipo de cuenta<select name="accountType">
+                  <option value="">Selecciona</option>
+                  <option>Ahorros</option>
+                  <option>Corriente</option>
+                </select></label
+              ><label
+                >Moneda<select name="currency">
+                  <option value="">Selecciona</option>
+                  <option>DOP</option>
+                  <option>USD</option>
+                  <option>EUR</option>
+                </select></label
+              >
+            </div>
+            <label
+              >Instrucciones adicionales<textarea
+                name="instructions"
+                maxlength="600"
+                rows="3"
+                placeholder="Solo instrucciones de transferencia. Nunca claves, PIN o códigos de acceso."
+              ></textarea>
+            </label>
+          </fieldset>
+        </div>
+        <div class="account-panel account-actions">
+          <button class="button dark" type="submit">
+            Guardar configuración ↗</button
+          ><a class="text-link" href="cuenta.html">Volver a mi cuenta</a>
+          <p id="storeStatus" role="status"></p>
+        </div>
+      </form>
+    </main>
+    <footer id="footer"></footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

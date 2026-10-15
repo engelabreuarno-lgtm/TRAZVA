@@ -1,4 +1,5 @@
 import { loadSketchfabSDK } from "./external-viewer.js";
+import { externalAllowed } from "../state/consent.js";
 
 // Keep heavy external viewers from starting together when a grid enters view.
 const pending = new Set();
@@ -51,7 +52,7 @@ export function createExternalPreview(product, host) {
   const task = {
     async start(releaseSlot) {
       release = releaseSlot;
-      if (disposed || !active || !host.isConnected) {
+      if (disposed || !active || !host.isConnected || !externalAllowed()) {
         reset();
         return;
       }
@@ -113,6 +114,19 @@ export function createExternalPreview(product, host) {
     setActive(on) {
       if (disposed) return;
       active = Boolean(on);
+      if (!externalAllowed()) {
+        reset();
+        host.classList.remove("preview-ready", "preview-failed");
+        host.classList.add("preview-private");
+        if (status)
+          status.innerHTML =
+            '<span>Vista externa desactivada</span><button type="button" data-privacy-settings>Configurar privacidad ↗</button>';
+        return;
+      }
+      if (host.classList.contains("preview-private")) {
+        host.classList.remove("preview-private");
+        if (status) status.textContent = "Preparando tu par…";
+      }
       if (phase === "ready") render(active);
       else if (!active && phase !== "failed") reset();
       else if (phase === "idle") {

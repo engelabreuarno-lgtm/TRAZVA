@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f4f2ed" />
+    <meta
+      name="description"
+      content="Iniciar sesión. Información y servicios de TRAZVA."
+    />
+    <title>Iniciar sesión — TRAZVA</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body data-page="login">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header id="header"></header>
+    <main id="contenido" class="wrap account-page">
+      <div class="account-shell">
+        <aside class="account-intro">
+          <p class="eyebrow">TU ESPACIO / TRAZVA</p>
+          <span class="account-mark" aria-hidden="true">≋</span>
+          <h1>Buenos pares.<br />Tu propia selección.</h1>
+          <p>
+            Guarda lo que te gusta y vuelve cuando quieras. Todo empieza con una
+            cuenta.
+          </p>
+          <a class="text-link" href="showroom.html">Explorar la colección ↗</a>
+        </aside>
+        <section class="account-panel">
+          <nav class="account-tabs" aria-label="Acceso a la cuenta">
+            <a href="iniciar-sesion.html">Iniciar sesión</a
+            ><a href="registro.html">Crear cuenta</a>
+          </nav>
+          <p class="eyebrow">BIENVENIDO DE NUEVO</p>
+          <h2>Vuelve a tu selección.</h2>
+          <p>
+            Accede de forma segura con tu cuenta de ChatGPT. No necesitas otra
+            contraseña.
+          </p>
+          <a
+            class="button dark"
+            href="/signin-with-chatgpt?return_to=%2Fcuenta.html"
+            target="_top"
+            >Continuar con ChatGPT <span>↗</span></a
+          >
+          <p id="accountStatus" role="status"></p>
+          <a id="accountContinue" class="text-link" href="cuenta.html" hidden
+            >Abrir mi cuenta ↗</a
+          >
+          <p class="account-note">
+            ¿Es tu primera vez?
+            <a href="registro.html">Crear mi perfil</a>.<br /><a
+              href="privacidad.html"
+              >Privacidad</a
+            >
+            · <a href="terminos.html">Términos</a>
+          </p>
+        </section>
+      </div>
+    </main>
+    <footer id="footer"></footer>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

@@ -1,4 +1,10 @@
 import { initModelPreviews } from "./js/features/model-preview.js";
+import { initPrivacy } from "./js/ui/privacy.js";
+import {
+  initAccount,
+  initStoreSettings,
+  initLegalIdentity,
+} from "./js/features/account.js";
 import { initRunning } from "./js/features/running.js";
 import { initStudio } from "./js/features/studio.js";
 import { initBrand } from "./js/ui/brand.js";
@@ -24,6 +30,10 @@ import { memory } from "./js/state/store.js";
 
 function init() {
   renderChrome();
+  initPrivacy();
+  initAccount();
+  initStoreSettings();
+  initLegalIdentity();
   initBrand();
   const featured = $("#featuredGrid");
   if (featured)

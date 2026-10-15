@@ -6,7 +6,9 @@ function files(dir) {
   return fs
     .readdirSync(dir, { withFileTypes: true })
     .flatMap((e) =>
-      e.isDirectory() ? files(path.join(dir, e.name)) : [path.join(dir, e.name)],
+      e.isDirectory()
+        ? files(path.join(dir, e.name))
+        : [path.join(dir, e.name)],
     );
 }
 const source = files(root).filter(
@@ -24,12 +26,18 @@ for (const file of source) {
   for (const match of text.matchAll(pattern)) {
     const ref = match[1];
     if (ref.startsWith("#") || /^[a-z][a-z\d+.-]*:/i.test(ref)) continue;
+    if (
+      ["/signin-with-chatgpt", "/signout-with-chatgpt"].includes(
+        ref.split(/[?#]/)[0],
+      )
+    )
+      continue; // Routes owned by Sites.
     const target = path.resolve(path.dirname(file), ref.split(/[?#]/)[0]);
     if (!fs.existsSync(target)) throw Error(`Missing asset: ${file} → ${ref}`);
   }
 }
-for (const file of files(path.resolve(import.meta.dirname, "../server")).filter((p) =>
-  p.endsWith(".js"),
+for (const file of files(path.resolve(import.meta.dirname, "../server")).filter(
+  (p) => p.endsWith(".js"),
 ))
   execFileSync(process.execPath, ["--check", file], { stdio: "pipe" });
 console.log(

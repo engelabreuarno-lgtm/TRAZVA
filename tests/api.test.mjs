@@ -10,14 +10,20 @@ before(async () => {
     scriptPath: "dist/server/index.js",
     compatibilityDate: "2026-01-01",
     d1Databases: ["DB"],
+    bindings: { TRAZVA_ADMIN_EMAIL: "test-owner@example.invalid" },
   });
   const db = await runtime.getD1Database("DB");
-  const migration = await readFile("drizzle/0000_nervous_aqueduct.sql", "utf8");
-  for (const statement of migration
-    .split("--> statement-breakpoint")
-    .map((s) => s.trim())
-    .filter(Boolean))
-    await db.prepare(statement).run();
+  const journal = JSON.parse(
+    await readFile("drizzle/meta/_journal.json", "utf8"),
+  );
+  for (const entry of journal.entries) {
+    const migration = await readFile(`drizzle/${entry.tag}.sql`, "utf8");
+    for (const statement of migration
+      .split("--> statement-breakpoint")
+      .map((s) => s.trim())
+      .filter(Boolean))
+      await db.prepare(statement).run();
+  }
 });
 after(async () => {
   await runtime?.dispose();
@@ -27,6 +33,7 @@ function call(path, method = "GET", body, user = "test-owner", headers = {}) {
     method,
     headers: {
       "oai-authenticated-user-id": user,
+      "oai-authenticated-user-email": user ? `${user}@example.invalid` : "",
       origin,
       "content-type": "application/json",
       ...headers,
@@ -96,4 +103,150 @@ test("Request retries do not duplicate records; users cannot delete another requ
   assert.equal(rows.length, 1);
   await call("/requests/" + body.id, "DELETE");
   assert.equal((await (await call("/studio")).json()).requests.length, 0);
+});
+
+test("Registration requires current terms; identity comes only from the signed-in account", async () => {
+  assert.equal((await call("/account", "GET", undefined, "")).status, 401);
+  assert.equal((await call("/account", "PUT", { name: "Engel" })).status, 400);
+  const input = {
+    name: "Cuenta de prueba",
+    acceptTerms: true,
+    privacyRead: true,
+    legalVersion: "2026-10-15",
+    email: "spoofed@example.invalid",
+    user_id: "test-other",
+  };
+  assert.equal(
+    (await call("/account", "PUT", { ...input, legalVersion: "old" })).status,
+    400,
+  );
+  assert.equal((await call("/account", "PUT", input)).status, 201);
+  const own = await (await call("/account")).json();
+  assert.equal(own.profile.email, "test-owner@example.invalid");
+  assert.equal(own.profile.display_name, input.name);
+  assert.equal(own.profile.terms_version, "2026-10-15");
+  assert.equal(
+    (await (await call("/account", "GET", undefined, "test-other")).json())
+      .profile,
+    null,
+  );
+  assert.equal(
+    (await call("/account", "PUT", { name: "<script>bad</script>" })).status,
+    400,
+  );
+  assert.equal(
+    (await call("/account", "PUT", { name: "Nombre actualizado" })).status,
+    200,
+  );
+  assert.equal(
+    (await (await call("/account")).json()).profile.accepted_at,
+    own.profile.accepted_at,
+  );
+  assert.equal(
+    (
+      await call("/account", "PUT", { name: "Nombre" }, "test-owner", {
+        origin: "https://other.test",
+      })
+    ).status,
+    403,
+  );
+});
+
+test("Bank settings are admin-only, validate input and never leak into public store or account export", async () => {
+  const input = {
+    legalName: "Empresa de prueba",
+    contactEmail: "shop@example.invalid",
+    address: "Dirección de prueba",
+    country: "País de prueba",
+    taxId: "",
+    bankName: "BANCO DE PRUEBA",
+    accountHolder: "TITULAR DE PRUEBA",
+    accountType: "Ahorros",
+    accountNumber: "TEST-12345678",
+    currency: "DOP",
+    instructions: "Datos ficticios exclusivamente para pruebas",
+  };
+  assert.equal((await call("/admin/store", "GET", undefined, "")).status, 401);
+  assert.equal(
+    (await call("/admin/store", "GET", undefined, "test-other")).status,
+    403,
+  );
+  assert.equal(
+    (await call("/admin/store", "PUT", input, "test-other")).status,
+    403,
+  );
+  assert.equal(
+    (await call("/admin/store", "PUT", { ...input, accountNumber: "" })).status,
+    400,
+  );
+  assert.equal(
+    (await call("/admin/store", "PUT", { ...input, currency: "BTC" })).status,
+    400,
+  );
+  assert.equal(
+    (await call("/admin/store", "PUT", { ...input, legalName: "<script>" }))
+      .status,
+    400,
+  );
+  assert.equal(
+    (
+      await call("/admin/store", "PUT", input, "test-owner", {
+        origin: "https://other.test",
+      })
+    ).status,
+    403,
+  );
+  assert.equal((await call("/admin/store", "PUT", input)).status, 200);
+  const saved = await (await call("/admin/store")).json();
+  assert.equal(saved.accountNumber, input.accountNumber);
+  const publicData = await (await call("/store", "GET", undefined, "")).json();
+  assert.equal(publicData.identity.legalName, input.legalName);
+  assert.equal(publicData.paymentsActive, false);
+  assert(!JSON.stringify(publicData).includes(input.accountNumber));
+  assert(
+    !JSON.stringify(await (await call("/account/export")).json()).includes(
+      input.accountNumber,
+    ),
+  );
+});
+
+test("Export and confirmed deletion only affect the requesting user's profile, selections and requests", async () => {
+  const input = {
+    name: "Otra cuenta",
+    acceptTerms: true,
+    privacyRead: true,
+    legalVersion: "2026-10-15",
+  };
+  await call("/account", "PUT", input, "test-other");
+  await call("/selections/208", "PUT", undefined, "test-other");
+  await call("/selections/207", "PUT");
+  await call("/requests", "POST", {
+    id: crypto.randomUUID(),
+    name: "Prueba",
+    email: "qa@example.invalid",
+    subject: "Privacidad",
+    message: "Consulta de prueba para exportar.",
+  });
+  const exported = await (await call("/account/export")).json();
+  assert.equal(exported.profile.display_name, "Nombre actualizado");
+  assert.equal(exported.selections.length, 1);
+  assert.equal(exported.requests.length, 1);
+  assert.equal((await call("/account", "DELETE", {})).status, 400);
+  assert.equal(
+    (await call("/account", "DELETE", { confirmation: "ELIMINAR" })).status,
+    200,
+  );
+  const deleted = await (await call("/account/export")).json();
+  assert.equal(deleted.profile, null);
+  assert.equal(deleted.selections.length, 0);
+  assert.equal(deleted.requests.length, 0);
+  const other = await (
+    await call("/account/export", "GET", undefined, "test-other")
+  ).json();
+  assert.equal(other.profile.display_name, input.name);
+  assert.equal(other.selections.length, 1);
+  assert.equal(
+    (await (await call("/admin/store")).json()).accountNumber,
+    "TEST-12345678",
+  );
 });

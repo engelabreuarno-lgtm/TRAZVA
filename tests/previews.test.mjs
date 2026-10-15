@@ -5,7 +5,7 @@ import { runningProducts } from "../web/js/data/running.js";
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
-async function fixture(t, { sdk = true } = {}) {
+async function fixture(t, { sdk = true, consent = true } = {}) {
   const dom = new JSDOM("<!doctype html><body></body>", {
     url: "https://trazva.test/showroom.html",
     pretendToBeVisual: true,
@@ -53,10 +53,16 @@ async function fixture(t, { sdk = true } = {}) {
       options.success(session.api);
     }
   }
+  if (consent)
+    w.localStorage.setItem(
+      "trazva_privacy_v1",
+      JSON.stringify({ version: 1, external: true, savedAt: Date.now() }),
+    );
   if (sdk) w.Sketchfab = Sketchfab;
   const { runningCard } = await import("../web/js/features/running.js");
-  const { initModelPreviews, modelPreview } =
-    await import("../web/js/features/model-preview.js");
+  const { initModelPreviews, modelPreview } = await import(
+    "../web/js/features/model-preview.js"
+  );
   document.body.innerHTML = runningProducts.map(runningCard).join("");
   initModelPreviews();
   const hosts = [...document.querySelectorAll("[data-model-preview]")];
@@ -196,4 +202,26 @@ test("Removing a preview while the SDK loads leaves no orphan iframe", async (t)
   await flush();
   assert.equal(sessions.length, 0);
   assert.equal(document.querySelectorAll("iframe").length, 0);
+});
+
+test("External content is blocked by default and removed immediately when consent is withdrawn", async (t) => {
+  const { hosts, sessions, show } = await fixture(t, { consent: false });
+  const { savePrivacyChoice } = await import("../web/js/state/consent.js");
+  await show(hosts);
+  assert.equal(sessions.length, 0);
+  assert.equal(
+    document.querySelectorAll('iframe, script[src*="sketchfab"]').length,
+    0,
+  );
+  assert(hosts.every((host) => host.classList.contains("preview-private")));
+  savePrivacyChoice(true);
+  await flush();
+  assert.equal(sessions.length, 2);
+  sessions[0].ready();
+  savePrivacyChoice(false);
+  await flush();
+  assert.equal(document.querySelectorAll("iframe").length, 0);
+  assert(hosts.every((host) => host.classList.contains("preview-private")));
+  sessions[1].ready();
+  assert(!hosts.some((host) => host.classList.contains("preview-ready")));
 });
