@@ -1,6 +1,6 @@
 # TRAZVA — cuenta, privacidad y transferencias (3.4.0)
 
-15 de octubre de 2026.
+Actualizada el 16 de octubre de 2026.
 
 - Cuatro páginas legales enlazadas en el pie de toda la web: privacidad, términos, cookies y envíos/cambios/pagos.
 - Banner y panel de privacidad con elección equivalente: solo necesarias, configurar o permitir externos. Sketchfab no se carga sin permiso; revocarlo retira los visores. Los modelos locales siguen disponibles.
@@ -10,6 +10,6 @@
 - Datos de transferencia guardados, privados y fuera de exportaciones de clientes; no activan pagos.
 - Se conservan logo, colección unificada, modelos sin fotografías y una sola barra de desplazamiento.
 
-La identidad comercial y datos bancarios reales deben completarse en Administración. Los textos reflejan la fase de prelanzamiento y requieren revisión para las condiciones comerciales definitivas. No se han inventado razón social, identificación fiscal, contacto comercial, datos bancarios ni plazos de devolución.
+La identidad comercial y datos bancarios reales deben completarse en Administración. Los textos legales se ampliaron con condiciones completas de compra, entrega, cancelación, prueba, garantía y reembolso, además de privacidad y cookies ajustadas a las funciones actuales. Versión legal 2026-10-16. No se han inventado razón social, identificación fiscal, contacto o datos bancarios. Consulta POLITICAS-COMERCIALES.md: recoge el marco dominicano, el compromiso comercial de reembolso propuesto y la revisión necesaria antes de vender. La actualización no activa pagos ni pedidos.
 
 Consulta PRUEBAS.md para verificaciones y límites.

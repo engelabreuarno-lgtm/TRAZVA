@@ -290,6 +290,77 @@ body[data-page="register"] .account-tabs a:last-child {
 .legal-identity p {
   font-size: 13px;
 }
+.legal-notice {
+  margin-top: 18px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.legal-notice p {
+  font-size: 13px;
+}
+.legal-toc {
+  margin-top: 30px;
+  padding-bottom: 8px;
+}
+.legal-copy ul,
+.legal-copy ol {
+  padding-left: 24px;
+  margin-block: 16px;
+  color: #4d5348;
+  font-size: 15px;
+  line-height: 1.85;
+}
+.legal-copy li {
+  padding-left: 4px;
+  margin-block: 9px;
+}
+.legal-toc ol {
+  columns: 2;
+  column-gap: 36px;
+  font-size: 13px;
+}
+.legal-toc li {
+  break-inside: avoid;
+}
+.legal-endnote {
+  padding-top: 30px;
+}
+@media (max-width: 700px) {
+  .legal-toc ol {
+    columns: 1;
+  }
+}
+@media print {
+  body[data-page="legal"] #header,
+  body[data-page="legal"] #footer,
+  body[data-page="legal"] .legal-layout aside,
+  body[data-page="legal"] .cookie-banner,
+  body[data-page="legal"] dialog,
+  body[data-page="legal"] .skip-link,
+  body[data-page="legal"] button,
+  body[data-page="legal"] .legal-endnote {
+    display: none !important;
+  }
+  body[data-page="legal"] .legal-layout {
+    display: block;
+  }
+  body[data-page="legal"] .account-page {
+    padding: 0;
+    max-width: none;
+  }
+  body[data-page="legal"] .account-heading h1 {
+    font-size: 32px;
+  }
+  .legal-copy h2 {
+    break-after: avoid;
+  }
+  .legal-copy p,
+  .legal-copy li {
+    orphans: 3;
+    widows: 3;
+  }
+}
 .legal-table {
   overflow-x: auto;
 }

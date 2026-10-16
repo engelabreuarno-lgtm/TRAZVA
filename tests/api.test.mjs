@@ -1,3 +1,4 @@
+import { LEGAL_VERSION } from "../web/js/data/legal.js";
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
@@ -112,7 +113,7 @@ test("Registration requires current terms; identity comes only from the signed-i
     name: "Cuenta de prueba",
     acceptTerms: true,
     privacyRead: true,
-    legalVersion: "2026-10-15",
+    legalVersion: LEGAL_VERSION,
     email: "spoofed@example.invalid",
     user_id: "test-other",
   };
@@ -124,7 +125,7 @@ test("Registration requires current terms; identity comes only from the signed-i
   const own = await (await call("/account")).json();
   assert.equal(own.profile.email, "test-owner@example.invalid");
   assert.equal(own.profile.display_name, input.name);
-  assert.equal(own.profile.terms_version, "2026-10-15");
+  assert.equal(own.profile.terms_version, LEGAL_VERSION);
   assert.equal(
     (await (await call("/account", "GET", undefined, "test-other")).json())
       .profile,
@@ -141,6 +142,31 @@ test("Registration requires current terms; identity comes only from the signed-i
   assert.equal(
     (await (await call("/account")).json()).profile.accepted_at,
     own.profile.accepted_at,
+  );
+  // A returning account must explicitly accept a revised legal version.
+  const db = await runtime.getD1Database("DB");
+  await db
+    .prepare(
+      "UPDATE profiles SET terms_version = ?, privacy_version = ? WHERE user_id = ?",
+    )
+    .bind("2026-10-15", "2026-10-15", "test-owner")
+    .run();
+  assert.equal(
+    (await call("/account", "PUT", { name: "Nombre actualizado" })).status,
+    400,
+  );
+  assert.equal(
+    (await (await call("/account")).json()).profile.terms_version,
+    "2026-10-15",
+  );
+  assert.equal(
+    (await call("/account", "PUT", { ...input, name: "Nombre actualizado" }))
+      .status,
+    200,
+  );
+  assert.equal(
+    (await (await call("/account")).json()).profile.terms_version,
+    LEGAL_VERSION,
   );
   assert.equal(
     (
@@ -215,7 +241,7 @@ test("Export and confirmed deletion only affect the requesting user's profile, s
     name: "Otra cuenta",
     acceptTerms: true,
     privacyRead: true,
-    legalVersion: "2026-10-15",
+    legalVersion: LEGAL_VERSION,
   };
   await call("/account", "PUT", input, "test-other");
   await call("/selections/208", "PUT", undefined, "test-other");

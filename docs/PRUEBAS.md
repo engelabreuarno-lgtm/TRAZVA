@@ -1,6 +1,6 @@
 # Verificación — TRAZVA 3.4.0
 
-15 de octubre de 2026.
+16 de octubre de 2026.
 
 ## Resultado
 
@@ -21,4 +21,4 @@ La publicación queda verificada por el estado final del alojamiento. Se conserv
 
 ## Preparación comercial
 
-No hay pagos ni pedidos reales. La administración debe completar su identidad, contacto, dirección, país y datos bancarios. Las páginas legales explican esta situación y deben revisarse antes de abrir ventas. Referencias consultadas: Ley 172-13 (Superintendencia de Bancos) y guía de comercio electrónico de Pro Consumidor/Indotel. No se promete conformidad jurídica universal ni plazos comerciales no establecidos.
+No hay pagos ni pedidos reales. La administración debe completar su identidad, contacto, dirección, país y datos bancarios. Las políticas completas distinguen las funciones actuales de las condiciones que regirán los pedidos confirmados al habilitar ventas. Referencias: leyes 358-05 y 172-13 y registro de contratos de adhesión de Pro Consumidor. POLITICAS-COMERCIALES.md documenta datos pendientes y el compromiso propuesto de orden de reembolso en siete días hábiles. No se promete conformidad jurídica universal.

@@ -78,7 +78,7 @@ Consulta `docs/PRUEBAS.md` para distinguir las verificaciones actuales de las pr
 
 - `iniciar-sesion.html` utiliza el inicio de sesión nativo de ChatGPT Sites; `registro.html` crea un perfil de TRAZVA asociado a esa identidad. No hay contraseña adicional ni autenticación simulada.
 - `cuenta.html` permite editar el nombre, descargar los datos y borrar perfil, selecciones y consultas de ese usuario. No elimina la cuenta del proveedor ni datos comerciales.
-- `privacidad.html`, `terminos.html`, `cookies.html` y `envios-cambios.html` describen las funciones reales de prelanzamiento. Identidad comercial, contacto y país se completan desde la administración. Revisión legal pendiente antes de aceptar ventas.
+- `privacidad.html`, `terminos.html`, `cookies.html` y `envios-cambios.html` contienen las condiciones comerciales preparadas para la apertura y las políticas de datos de las funciones actuales. Consulta `docs/POLITICAS-COMERCIALES.md` para alcance, fuentes y datos pendientes. Identidad comercial, contacto y país se completan desde la administración. Revisión legal pendiente antes de aceptar ventas.
 - El permiso de contenido externo está desactivado por defecto y vence tras 180 días. Rechazarlo bloquea el SDK y los iframes; retirarlo elimina los visores activos. No se añaden publicidad ni analítica.
 - `administracion.html` configura identidad comercial y banco/titular/tipo/número/moneda/instrucciones. Solo permite la identidad autenticada cuyo correo coincide con `TRAZVA_ADMIN_EMAIL`, configurado en el entorno del servidor. Sin esa variable, el acceso administrativo queda denegado.
 - Los datos bancarios se guardan en D1 y permanecen privados: no salen en `/api/store`, la exportación del usuario ni en el catálogo. Guardarlos no activa cobros.

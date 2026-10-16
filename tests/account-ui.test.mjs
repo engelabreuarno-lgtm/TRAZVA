@@ -5,7 +5,11 @@ import { JSDOM } from "jsdom";
 import { initAccount, initStoreSettings } from "../web/js/features/account.js";
 import { initPrivacy } from "../web/js/ui/privacy.js";
 import { privacyChoice, externalAllowed } from "../web/js/state/consent.js";
-import { CONSENT_KEY, CONSENT_TTL } from "../web/js/data/legal.js";
+import {
+  CONSENT_KEY,
+  CONSENT_TTL,
+  LEGAL_VERSION,
+} from "../web/js/data/legal.js";
 import { renderChrome } from "../web/js/ui/chrome.js";
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 async function page(t, file) {
@@ -77,7 +81,7 @@ test("Registration uses verified identity and explicit unchecked legal acceptanc
     new w.Event("submit", { bubbles: true, cancelable: true }),
   );
   await flush();
-  assert.equal(body.legalVersion, "2026-10-15");
+  assert.equal(body.legalVersion, LEGAL_VERSION);
   assert.equal(body.acceptTerms, true);
   assert(!Object.hasOwn(body, "email"));
   assert(!document.querySelector("#accountContinue").hidden);
