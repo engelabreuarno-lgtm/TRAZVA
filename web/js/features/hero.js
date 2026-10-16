@@ -41,6 +41,7 @@ export async function initHeroModel() {
     const link = $(".hero-product");
     link.dataset.product = id;
     $("strong", link).textContent = p.name;
+    $("small", link).textContent = `${p.brand} / ${p.category}`;
     hint.textContent = "PREPARANDO TU PAR…";
     try {
       await loadViewer();
@@ -105,13 +106,14 @@ export async function initHeroModel() {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) stop();
   });
-  new IntersectionObserver(
-    ([entry]) => {
-      visible = entry.isIntersecting;
-      if (!visible) stop();
-    },
-    { threshold: 0.1 },
-  ).observe(stage);
+  if ("IntersectionObserver" in window)
+    new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (!visible) stop();
+      },
+      { threshold: 0.1 },
+    ).observe(stage);
   new MutationObserver(() => {
     if (document.body.classList.contains("locked")) stop();
   }).observe(document.body, { attributes: true, attributeFilter: ["class"] });

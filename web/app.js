@@ -1,4 +1,5 @@
 import { initModelPreviews } from "./js/features/model-preview.js";
+import { initEditorial } from "./js/features/editorial.js";
 import { initPrivacy } from "./js/ui/privacy.js";
 import {
   initAccount,
@@ -14,7 +15,6 @@ import { renderChrome, updateCount } from "./js/ui/chrome.js";
 import { $$, $ } from "./js/core/dom.js";
 import { products } from "./js/data/catalog.js";
 import {
-  card,
   toggleFavorite,
   initCatalog,
   syncFavorites,
@@ -35,11 +35,7 @@ function init() {
   initStoreSettings();
   initLegalIdentity();
   initBrand();
-  const featured = $("#featuredGrid");
-  if (featured)
-    featured.innerHTML = [products[0], products[1], products[2]]
-      .map(card)
-      .join("");
+  initEditorial();
   document.addEventListener("click", (e) => {
     const favorite = e.target.closest("[data-favorite]");
     if (favorite) {

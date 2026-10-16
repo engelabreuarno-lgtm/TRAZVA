@@ -49,6 +49,32 @@ export function syncFavorites() {
 }
 
 export const filters = { category: "all" };
+let searchTimer;
+
+function renderActiveFilters() {
+  const host = $("#activeFilters");
+  if (!host) return;
+  const uses = {
+    daily: "Rodaje diario",
+    long: "Tirada larga",
+    speed: "Entrenar rápido",
+    race: "Competir",
+  };
+  const entries = [
+    ["category", filters.category !== "all" ? filters.category : ""],
+    ["query", $("#searchInput").value.trim()],
+    ["brand", $("#catalogBrand").value],
+    ["use", filters.category === "Running" ? uses[$("#catalogUse").value] : ""],
+    ["favorites", $("#favToggle").checked ? "Favoritos" : ""],
+  ].filter(([, value]) => value);
+  host.hidden = !entries.length;
+  host.innerHTML = entries
+    .map(
+      ([key, value]) =>
+        `<button type="button" data-remove-filter="${key}" aria-label="Quitar filtro: ${esc(value)}">${esc(value)} <span aria-hidden="true">×</span></button>`,
+    )
+    .join("");
+}
 
 export function saveCatalogURL() {
   const u = new URL(location.href);
@@ -74,6 +100,7 @@ export function saveCatalogURL() {
 }
 
 export function renderCatalog() {
+  clearTimeout(searchTimer);
   const grid = $("#catalogGrid");
   if (!grid) return;
   saveCatalogURL();
@@ -94,6 +121,7 @@ export function renderCatalog() {
     favorites: $("#favToggle").checked ? getFavorites() : null,
     sort: $("#sortSelect").value,
   });
+  renderActiveFilters();
   $("#clearCatalog").hidden =
     filters.category === "all" &&
     !$("#searchInput").value.trim() &&
@@ -102,9 +130,13 @@ export function renderCatalog() {
     $("#sortSelect").value === "default";
   $("#resultCount").textContent =
     `${String(list.length).padStart(2, "0")} ${list.length === 1 ? "par seleccionado" : "pares seleccionados"}`;
+  // Keep mounted models when a refinement returns the same ordered products.
+  const signature = list.map((p) => p.id).join(",");
+  if (list.length && grid.dataset.results === signature) return;
+  grid.dataset.results = signature;
   grid.innerHTML = list.length
     ? list.map(card).join("")
-    : `<div class="empty-state">${icon("search")}<h2>${$("#favToggle").checked ? "Tu selección está por empezar." : "No encontramos ese par."}</h2><p>Prueba otra búsqueda o descubre la colección completa.</p><button class="button dark" id="resetFilters">Ver todos los pares <span>↗</span></button></div>`;
+    : `<div class="empty-state">${icon("search")}<h2>${$("#favToggle").checked ? "No hay favoritos con estos filtros." : "Démosle otra vuelta."}</h2><p>Quita un filtro o busca por marca, modelo o estilo. También puedes dejarte orientar por nuestro asesor.</p><div class="empty-actions"><button class="button dark" id="resetFilters">Ver todos los pares <span>↗</span></button><a class="text-link" href="index.html#encuentra-tu-par">Ayúdame a elegir ↗</a></div></div>`;
   $("#resetFilters")?.addEventListener("click", resetCatalog);
 }
 
@@ -166,7 +198,30 @@ export function initCatalog() {
       ? category
       : "all",
   );
-  $("#searchInput").addEventListener("input", renderCatalog);
+  $("#searchInput").addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(renderCatalog, 180);
+  });
+  $("#searchInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      renderCatalog();
+    }
+  });
+  $("#activeFilters")?.addEventListener("click", (e) => {
+    const button = e.target.closest("[data-remove-filter]");
+    if (!button) return;
+    const key = button.dataset.removeFilter;
+    if (key === "category") setCategory("all");
+    else {
+      if (key === "query") $("#searchInput").value = "";
+      if (key === "brand") $("#catalogBrand").value = "";
+      if (key === "use") $("#catalogUse").value = "all";
+      if (key === "favorites") $("#favToggle").checked = false;
+      renderCatalog();
+    }
+    ($("#activeFilters button") || $("#searchInput")).focus();
+  });
   $("#catalogBrand").addEventListener("change", renderCatalog);
   $("#catalogUse").addEventListener("change", renderCatalog);
   $("#clearCatalog").addEventListener("click", resetCatalog);

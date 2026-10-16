@@ -12,16 +12,20 @@ export function selectProducts(
     sort = "default",
   } = {},
 ) {
-  const term = normalize(query.trim());
+  const terms = normalize(query.trim()).split(/\s+/).filter(Boolean);
   const list = products.filter(
     (p) =>
       (p.model || p.embed) &&
       (category === "all" || p.category === category) &&
       (!brand || p.brand === brand) &&
       (category !== "Running" || use === "all" || p.uses?.includes(use)) &&
-      normalize(
-        [p.name, p.brand, p.color, p.foam].filter(Boolean).join(" "),
-      ).includes(term) &&
+      terms.every((term) =>
+        normalize(
+          [p.name, p.brand, p.category, p.color, p.foam]
+            .filter(Boolean)
+            .join(" "),
+        ).includes(term),
+      ) &&
       (!favorites || favorites.includes(p.id)),
   );
   const numeric =

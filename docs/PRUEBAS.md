@@ -4,12 +4,14 @@
 
 ## Resultado
 
-19 pruebas automatizadas pasan:
+22 pruebas automatizadas pasan:
 
 - 6 de API y D1 local: autenticación/origen/validación, selección aislada e idempotente, consultas idempotentes, registro con versión legal e identidad del proveedor, configuración bancaria solo administradora y sin filtración pública, exportación/borrado aislados por usuario.
-- 3 de catálogo: solo productos con modelo, filtros combinados y orden de precios/datos técnicos.
+- 3 de catálogo: solo productos con modelo, búsqueda por múltiples palabras/categoría y filtros combinados, orden de precios/datos técnicos.
 - 6 de miniaturas: formato, carga de dos en dos, pausa por visibilidad, limpieza al filtrar, retirada durante carga del SDK y consentimiento con bloqueo inicial/revocación. SDK simulado.
 - 4 de interfaz: registro sin casillas premarcadas y reintentos conservando datos, acceso anónimo mediante enlace nativo, panel oculto ante rechazo de permisos y preferencias de cookies reabribles/caducadas/inválidas. JSDOM, no navegador visual.
+
+- 3 de tienda: filtros individuales y preservación de modelos/URL, selección editorial y sincronización de guardados, asesor con varias opciones y enlace que conserva el entrenamiento. DOM simulado.
 
 Comprobación adicional de sintaxis y rutas locales, construcción del Worker y revisión del SQL aditivo generado por Drizzle. Las pruebas aplican ambas migraciones en una D1 de Miniflare aislada; no escriben datos ficticios en producción.
 

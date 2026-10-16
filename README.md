@@ -72,7 +72,7 @@ TRAZVA es la nueva identidad de trabajo. No se ha registrado una empresa o marca
 
 ## Última revisión
 
-Consulta `docs/PRUEBAS.md` para distinguir las verificaciones actuales de las pruebas históricas. Las 19 pruebas cubren catálogo, D1, perfiles, permisos de administración, exportación y borrado, consentimiento y el ciclo de las miniaturas. Se revisaron filtros, favoritos, comparación, menú y selector con interacciones DOM. Los ensayos de miniaturas usan una API de Sketchfab simulada: no verifican el renderizado del proveedor. El perfil de previsualización no admite este servidor, por lo que no se afirma una revisión visual nueva. La publicación se realiza sobre el mismo proyecto privado mediante su flujo de versiones.
+Consulta `docs/PRUEBAS.md` para distinguir las verificaciones actuales de las pruebas históricas. Las 22 pruebas cubren catálogo, D1, perfiles, permisos de administración, exportación y borrado, consentimiento y el ciclo de las miniaturas. Se revisaron filtros, favoritos, comparación, menú y selector con interacciones DOM. Los ensayos de miniaturas usan una API de Sketchfab simulada: no verifican el renderizado del proveedor. El perfil de previsualización no admite este servidor, por lo que no se afirma una revisión visual nueva. La publicación se realiza sobre el mismo proyecto privado mediante su flujo de versiones.
 
 ## Cuenta, privacidad y transferencias — 3.4.0
 
@@ -85,3 +85,15 @@ Consulta `docs/PRUEBAS.md` para distinguir las verificaciones actuales de las pr
 - Migración aditiva `0001_wandering_flatman.sql`: tablas `profiles` y `store_settings`. No modificar la migración previa. Las pruebas usan datos ficticios y base local aislada.
 
 La configuración de la identidad administradora no modifica quién puede entrar al Site: se conserva su acceso privado. No hay servicio de contraseñas, verificación de transferencias, pedidos reales ni correos automáticos.
+
+
+## Mejora de la tienda — 16 de octubre de 2026
+
+- Portada con tres selecciones interactivas: diario, running y carácter; conserva el logo como alternativa durante la carga del modelo.
+- Tarjetas con jerarquía más clara y una selección desplazable en móvil que muestra los tres pares.
+- Búsqueda por palabras combinadas, marca, modelo y categoría; espera breve al escribir y conservación de los modelos cuando los resultados no cambian.
+- Filtros activos que pueden eliminarse individualmente sin perder el resto ni los enlaces de comparación.
+- Asesor con hasta tres opciones y enlace a la colección que conserva el entrenamiento elegido.
+- Guía de elección con preguntas desplegables y guía de talla sin equivalencias universales incorrectas.
+
+La estética se mantiene en tinta, papel y verde oliva. Los cambios no activan ventas ni modifican los datos del negocio, las políticas o el acceso privado.

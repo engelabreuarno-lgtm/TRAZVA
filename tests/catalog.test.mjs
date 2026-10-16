@@ -32,6 +32,14 @@ test("Running use, brand, search and favorites combine in the shared collection"
   );
   assert.equal(selectProducts(products, { favorites: [] }).length, 0);
   assert.equal(selectProducts(products, { query: "FF BLAST" })[0].id, 210);
+  assert.deepEqual(
+    selectProducts(products, { query: "  running   bóston adidas " }).map(
+      (p) => p.id,
+    ),
+    [207],
+  );
+  assert.equal(selectProducts(products, { query: "running" }).length, 4);
+  assert.equal(selectProducts(products, { query: "boston vans" }).length, 0);
 });
 test("Unknown prices sort last in both directions; technical sorts keep numeric order", () => {
   for (const sort of ["asc", "desc"]) {

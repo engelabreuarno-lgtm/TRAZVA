@@ -13,3 +13,10 @@ Actualizada el 16 de octubre de 2026.
 La identidad comercial y datos bancarios reales deben completarse en Administración. Los textos legales se ampliaron con condiciones completas de compra, entrega, cancelación, prueba, garantía y reembolso, además de privacidad y cookies ajustadas a las funciones actuales. Versión legal 2026-10-16. No se han inventado razón social, identificación fiscal, contacto o datos bancarios. Consulta POLITICAS-COMERCIALES.md: recoge el marco dominicano, el compromiso comercial de reembolso propuesto y la revisión necesaria antes de vender. La actualización no activa pagos ni pedidos.
 
 Consulta PRUEBAS.md para verificaciones y límites.
+
+
+## Mejora de navegación y diseño de la tienda
+
+Portada con selecciones interactivas, tarjetas renovadas, carrusel nativo en móvil sin ocultar pares, acceso directo al asesor, filtros individuales, búsqueda combinada y preservación de visores cuando la búsqueda no modifica la selección. El asesor ofrece hasta tres opciones y mantiene el entrenamiento al abrir la colección. La sección de preguntas y la guía de tallas ayudan a elegir sin equivalencias universales inventadas.
+
+22 pruebas automatizadas superadas. Compilación y rutas locales verificadas. No se afirma revisión visual en navegador: sigue sin estar disponible el control de navegador compatible con el entorno.

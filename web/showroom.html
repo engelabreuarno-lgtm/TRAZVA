@@ -23,7 +23,7 @@
     >
     <main id="contenido" class="wrap catalog-main">
       <div class="page-heading">
-        <p class="eyebrow">EL ARCHIVO TRAZVA / VOL. 01</p>
+        <p class="eyebrow">TRAZVA / ELEGIDOS PARA MOVERTE</p>
         <div class="heading-row">
           <h1>La colección<span class="accent-dot">.</span></h1>
           <p>
@@ -31,6 +31,12 @@
             contigo.
           </p>
         </div>
+      </div>
+      <div class="collection-intro">
+        <span>ELIGE POR LO QUE TE MUEVE</span
+        ><a href="index.html#encuentra-tu-par"
+          >¿No sabes por dónde empezar? <strong>Encuentra tu par ↗</strong></a
+        >
       </div>
       <div class="catalog-tools">
         <div class="category-tabs" role="group" aria-label="Filtrar por estilo">
@@ -47,7 +53,7 @@
           ><input
             id="searchInput"
             type="search"
-            placeholder="Busca tu próximo par"
+            placeholder="Marca, modelo o estilo…"
             aria-label="Buscar modelo o marca"
         /></label>
       </div>
@@ -71,6 +77,13 @@
           Limpiar filtros ×
         </button>
       </div>
+      <div
+        id="activeFilters"
+        class="active-filters"
+        role="group"
+        aria-label="Filtros activos; pulsa para quitar"
+        hidden
+      ></div>
       <div class="catalog-meta">
         <p id="resultCount" aria-live="polite"></p>
         <div>

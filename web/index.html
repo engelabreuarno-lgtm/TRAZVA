@@ -25,17 +25,20 @@
       <section class="hero wrap hero-immersive">
         <div class="hero-copy">
           <p class="eyebrow">
-            <span class="live-dot"></span> INDEPENDENT MOVEMENT CULTURE · VOL.
-            03
+            <span class="live-dot"></span> TRAZVA / ESTILO EN MOVIMIENTO
           </p>
           <h1>No sigas<br />los pasos.<br /><span>Deja huella.</span></h1>
           <p class="hero-desc">
             Para correr, caminar y vivir a tu ritmo.<br />Elige por estilo,
             conoce los detalles y encuentra comodidad a tu manera.
           </p>
-          <a class="button dark" href="showroom.html"
-            >Explorar la colección <span aria-hidden="true">↗</span></a
-          >
+          <div class="hero-cta-row">
+            <a class="button dark" href="showroom.html"
+              >Explorar la colección <span aria-hidden="true">↗</span></a
+            ><a class="hero-advisor-link" href="#encuentra-tu-par"
+              >Ayúdame a elegir <span aria-hidden="true">↓</span></a
+            >
+          </div>
           <div class="hero-bottom">
             <span class="hero-index">EST. 2026</span
             ><span>PARA LOS QUE CAMINAN<br />A SU PROPIO RITMO.</span
@@ -49,12 +52,16 @@
         </div>
         <div class="hero-visual hero-studio">
           <div class="hero-image-top">
-            <span>TRAZVA / THE SNEAKER EDIT</span><span>TZ / 2026</span>
+            <span>LA FORMA DE TU SIGUIENTE PASO</span><span>TZ / 2026</span>
           </div>
           <span class="hero-wordmark" aria-hidden="true"
             >MOVE<br />YOUR WAY.</span
           ><span class="orbit-ring" aria-hidden="true"></span>
-          <div id="heroModelStage"></div>
+          <div id="heroModelStage">
+            <span class="hero-fallback" aria-hidden="true"
+              >≋<small>TRAZVA</small></span
+            >
+          </div>
           <div
             class="hero-model-picker"
             role="group"
@@ -112,7 +119,7 @@
         <div class="section-top">
           <div>
             <p class="eyebrow">01 / LA SELECCIÓN</p>
-            <h2>Buenos pares.<br />Grandes historias.</h2>
+            <h2>El día cambia.<br />Tu par también.</h2>
           </div>
           <div class="section-aside">
             <p>
@@ -124,7 +131,56 @@
             >
           </div>
         </div>
-        <div class="product-grid" id="featuredGrid"></div>
+        <div
+          class="edit-switcher"
+          role="group"
+          aria-label="Explorar selecciones"
+        >
+          <button
+            type="button"
+            data-edit="daily"
+            aria-pressed="true"
+            aria-controls="featuredGrid"
+          >
+            <span>01</span> A diario <b aria-hidden="true">↗</b>
+          </button>
+          <button
+            type="button"
+            data-edit="running"
+            aria-pressed="false"
+            aria-controls="featuredGrid"
+          >
+            <span>02</span> Para correr <b aria-hidden="true">↗</b>
+          </button>
+          <button
+            type="button"
+            data-edit="character"
+            aria-pressed="false"
+            aria-controls="featuredGrid"
+          >
+            <span>03</span> Con carácter <b aria-hidden="true">↗</b>
+          </button>
+        </div>
+        <div class="edit-caption">
+          <div>
+            <h3 id="editTitle">De la primera salida al último plan.</h3>
+            <p id="editNote">Descubre la selección.</p>
+          </div>
+          <a id="editLink" class="text-link" href="showroom.html"
+            >Explorar selección ↗</a
+          >
+        </div>
+        <p class="sr-only" id="editStatus" role="status"></p>
+        <div
+          class="product-grid"
+          id="featuredGrid"
+          tabindex="0"
+          role="region"
+          aria-label="Pares destacados; desplázate para ver todos"
+        ></div>
+        <p class="edit-swipe" aria-hidden="true">
+          DESLIZA PARA EXPLORAR <span>⟷</span>
+        </p>
       </section>
       <section class="brand-interlude wrap" aria-label="La filosofía de TRAZVA">
         <div class="interlude-mark" aria-hidden="true">≋</div>
@@ -233,43 +289,75 @@
           <div id="finderResult" tabindex="-1" aria-live="polite"></div>
         </form>
       </section>
-      <section class="section wrap philosophy" id="filosofia">
-        <div>
+      <section
+        class="fit-notes wrap"
+        id="filosofia"
+        aria-labelledby="fitNotesTitle"
+      >
+        <div class="fit-notes-heading">
           <p class="eyebrow">04 / EL CRITERIO TRAZVA</p>
-          <h2>Lo esencial.<br />Extraordinario.</h2>
+          <h2 id="fitNotesTitle">Elegir bien.<br />Sentirte mejor.</h2>
+          <p>
+            El siguiente paso no tiene que ser una apuesta. Empieza por estas
+            tres preguntas.
+          </p>
+          <a class="text-link" href="contact.html">Tengo otra pregunta ↗</a
+          ><span class="fit-notes-mark" aria-hidden="true">↗</span>
         </div>
-        <div class="principles">
-          <article>
-            <span>01</span>
+        <div class="fit-questions">
+          <details open>
+            <summary>
+              <span>01</span> ¿Qué talla debería elegir?<b aria-hidden="true"
+                >+</b
+              >
+            </summary>
             <div>
-              <h3>Calidad en los detalles</h3>
               <p>
-                Materiales, acabados y construcción. Mira de cerca cada par y
-                consulta la información de su marca.
+                Mide ambos pies y consulta la tabla específica de la marca y el
+                modelo. No todas las tallas US o EU tienen la misma equivalencia
+                entre fabricantes.
+              </p>
+              <p>
+                En la ficha encontrarás el enlace de la marca. La talla que uses
+                en otro par es una referencia, no una garantía de ajuste.
               </p>
             </div>
-          </article>
-          <article>
-            <span>02</span>
+          </details>
+          <details>
+            <summary>
+              <span>02</span> ¿Cómo comparo los tenis para correr?<b
+                aria-hidden="true"
+                >+</b
+              >
+            </summary>
             <div>
-              <h3>La comodidad es personal</h3>
               <p>
-                Empieza por el uso que le darás. Revisa la talla, el ajuste y la
-                amortiguación antes de decidir.
+                Filtra por el entrenamiento que quieres hacer y compara hasta
+                tres opciones. Revisa amortiguación, estructura y drop; el peso
+                publicado depende de la talla utilizada por cada fabricante.
               </p>
+              <a class="text-link" href="showroom.html?category=Running"
+                >Comparar opciones ↗</a
+              >
             </div>
-          </article>
-          <article>
-            <span>03</span>
+          </details>
+          <details>
+            <summary>
+              <span>03</span> ¿Cómo conservo mi selección?<b aria-hidden="true"
+                >+</b
+              >
+            </summary>
             <div>
-              <h3>Elige con información</h3>
               <p>
-                Guías de talla, datos del fabricante y comparación de
-                características. Más claridad para encontrar el par que va
-                contigo.
+                El corazón guarda favoritos en este navegador. Para conservar
+                tus opciones de running en la cuenta, utiliza “Mi estudio”.
+                También puedes compartir el enlace de una ficha o comparación.
               </p>
+              <a class="text-link" href="showroom.html?fav=1"
+                >Abrir mis favoritos ↗</a
+              >
             </div>
-          </article>
+          </details>
         </div>
       </section>
       <section class="collection-banner wrap">

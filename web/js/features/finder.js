@@ -30,14 +30,14 @@ export function initFinder() {
     );
     result.innerHTML = matches.length
       ? `<p class="finder-caption">${matches.length === 1 ? "Una opción para empezar" : `${matches.length} opciones para explorar`}. Revisa los detalles y el ajuste antes de decidir.</p>${matches
-          .slice(0, running ? 3 : 1)
+          .slice(0, 3)
           .map(
             (p) =>
               `<button class="finder-match" data-product="${p.id}" type="button">${modelPreview(p)}<span><small>${esc(p.brand)} / ${p.category}</small><strong>${esc(p.name)}</strong><b>${running ? `${p.weight} g · ${p.drop} mm drop` : `${money(p.price)} USD ilustrativos`} · Ver detalles ↗</b></span></button>`,
           )
           .join(
             "",
-          )}<a class="text-link finder-more" href="showroom.html?category=${style}">Ver más opciones ↗</a>`
+          )}<a class="text-link finder-more" href="showroom.html?category=${style}${running ? `&use=${data.get("goal")}` : ""}">Ver más opciones ↗</a>`
       : `<p class="finder-caption">${running ? "Todavía no tenemos un par para ese entrenamiento. Prueba otro uso o explora la colección." : "No hay pares de este estilo dentro del presupuesto. Prueba otro estilo o amplía el importe."}</p>`;
     result.focus();
     if (motionEnabled())
