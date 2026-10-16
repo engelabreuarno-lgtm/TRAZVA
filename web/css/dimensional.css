@@ -161,7 +161,7 @@
   background: var(--ink);
   color: var(--paper);
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   align-items: center;
   gap: 60px;
   position: relative;
@@ -169,17 +169,19 @@
   border-radius: 6px;
 }
 .interlude-mark {
-  font-size: clamp(180px, 27vw, 390px);
+  /* Keep the decorative glyph inside its own layout box. Rotating a
+     full-width grid item painted across the adjacent text on narrow screens. */
+  width: fit-content;
+  max-width: 100%;
+  justify-self: center;
+  overflow: hidden;
+  font-size: clamp(140px, 20vw, 280px);
   font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.12em;
+  line-height: 1.2;
+  letter-spacing: 0;
   color: var(--run-accent);
-  transform: rotate(-12deg);
   user-select: none;
-  transition: transform 0.8s cubic-bezier(0.22, 0.7, 0.2, 1);
-}
-.brand-interlude:hover .interlude-mark {
-  transform: rotate(0);
+  pointer-events: none;
 }
 .brand-interlude h2 {
   font-size: clamp(36px, 4.5vw, 70px);
@@ -549,8 +551,8 @@
     gap: 24px;
   }
   .interlude-mark {
-    font-size: 150px;
-    letter-spacing: 0;
+    font-size: 100px;
+    justify-self: start;
   }
   .run-hero-dimensional {
     min-height: 450px;
@@ -696,18 +698,15 @@
 @media (prefers-reduced-motion: reduce) {
   .model-preview model-viewer,
   .run-card-dimensional,
-  .interlude-mark,
   .style-path::after {
     transition: none;
   }
-  .run-card-dimensional:hover,
-  .brand-interlude:hover .interlude-mark {
+  .run-card-dimensional:hover {
     transform: none;
   }
 }
 :root[data-motion="off"] .model-preview model-viewer,
 :root[data-motion="off"] .run-card-dimensional,
-:root[data-motion="off"] .interlude-mark,
 :root[data-motion="off"] .style-path::after {
   transition: none;
 }
