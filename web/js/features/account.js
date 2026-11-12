@@ -81,6 +81,7 @@ export async function initAccount() {
       });
       $("#profileStatus").textContent = "Tu perfil se ha guardado.";
       status.textContent = "Tu cuenta de TRAZVA está lista.";
+      document.dispatchEvent(new window.Event("trazva:account"));
       $("#accountContinue")?.removeAttribute("hidden");
     } catch (error) {
       $("#profileStatus").textContent = error.message;
@@ -115,6 +116,7 @@ export async function initAccount() {
         }),
       });
       $("#accountContent").hidden = true;
+      document.dispatchEvent(new window.Event("trazva:account"));
       status.textContent =
         "Tu perfil, selección y consultas de TRAZVA se han eliminado.";
       const link = document.createElement("a");

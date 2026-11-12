@@ -1,3 +1,4 @@
+import { CONSENT_KEY } from "../web/js/data/legal.js";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { JSDOM } from "jsdom";
@@ -16,6 +17,7 @@ async function fixture(t, { sdk = true, consent = true } = {}) {
     "document",
     "location",
     "localStorage",
+    "sessionStorage",
     "MutationObserver",
   ])
     globalThis[key] = key === "window" ? w : w[key];
@@ -54,9 +56,9 @@ async function fixture(t, { sdk = true, consent = true } = {}) {
     }
   }
   if (consent)
-    w.localStorage.setItem(
-      "trazva_privacy_v1",
-      JSON.stringify({ version: 1, external: true, savedAt: Date.now() }),
+    w.sessionStorage.setItem(
+      CONSENT_KEY,
+      JSON.stringify({ version: 2, external: true, savedAt: Date.now() }),
     );
   if (sdk) w.Sketchfab = Sketchfab;
   const { runningCard } = await import("../web/js/features/running.js");

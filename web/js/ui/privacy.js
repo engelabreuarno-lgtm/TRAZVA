@@ -1,7 +1,9 @@
+import { CONSENT_TTL } from "../data/legal.js";
 import {
   externalAllowed,
   privacyChoice,
   savePrivacyChoice,
+  beginPrivacyVisit,
 } from "../state/consent.js";
 
 export function openPrivacySettings() {
@@ -20,8 +22,8 @@ export function openPrivacySettings() {
     const toast = document.querySelector("#toast");
     if (toast) {
       toast.textContent = persisted
-        ? "Preferencias guardadas."
-        : "Preferencias aplicadas solo en esta sesión: el navegador impide guardarlas.";
+        ? "Preferencias guardadas para esta visita."
+        : "Preferencias aplicadas en esta página: el navegador impide guardarlas.";
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 4000);
     }
@@ -48,14 +50,20 @@ export function openPrivacySettings() {
   d.showModal();
 }
 export function initPrivacy() {
+  beginPrivacyVisit();
   const banner = document.createElement("section");
   banner.className = "cookie-banner";
   banner.setAttribute("aria-label", "Preferencias de privacidad");
-  banner.innerHTML = `<div><strong>Tu privacidad también importa.</strong><p>Usamos almacenamiento necesario para tu selección y acceso. Los modelos externos de Sketchfab solo se cargan si los permites. <a href="cookies.html">Más información</a></p></div><div class="cookie-actions"><button class="button outline" data-reject-cookies>Solo necesarias</button><button class="button outline" data-privacy-settings>Configurar</button><button class="button dark" data-accept-cookies>Permitir externos</button></div>`;
+  banner.innerHTML = `<div><strong>Bienvenido a TRAZVA. Tú eliges tus cookies.</strong><p>Las funciones básicas están disponibles. Con tu permiso cargamos los modelos de Sketchfab, que pueden usar sus propias cookies. Te preguntaremos de nuevo en cada visita; tu elección dura como máximo 30 minutos. <a href="cookies.html">Política de cookies</a></p><p class="cookie-first-visit">¿Primera vez? <a href="registro.html">Crear cuenta</a> · <a href="guia.html">Cómo usar TRAZVA</a></p></div><div class="cookie-actions"><button class="button outline" data-reject-cookies>Rechazar opcionales</button><button class="button outline" data-privacy-settings>Configurar</button><button class="button outline" data-accept-cookies>Aceptar opcionales</button></div>`;
   document.body.append(banner);
+  let expiryTimer;
   const sync = () => {
-    banner.hidden = Boolean(privacyChoice());
+    window.clearTimeout(expiryTimer);
+    const choice = privacyChoice();
+    banner.hidden = Boolean(choice);
+    if (choice) expiryTimer = window.setTimeout(() => document.dispatchEvent(new window.Event("trazva:privacy")), Math.max(1, choice.savedAt + CONSENT_TTL - Date.now() + 1));
   };
+  window.addEventListener("pagehide", () => window.clearTimeout(expiryTimer));
   banner
     .querySelector("[data-reject-cookies]")
     .addEventListener("click", () => savePrivacyChoice(false));

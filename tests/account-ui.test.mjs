@@ -11,6 +11,7 @@ import {
   LEGAL_VERSION,
 } from "../web/js/data/legal.js";
 import { renderChrome } from "../web/js/ui/chrome.js";
+import { savePrivacyChoice } from "../web/js/state/consent.js";
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 async function page(t, file) {
   const dom = new JSDOM(await readFile("web/" + file, "utf8"), {
@@ -23,6 +24,7 @@ async function page(t, file) {
     "document",
     "location",
     "localStorage",
+    "sessionStorage",
     "FormData",
   ])
     globalThis[key] = key === "window" ? w : w[key];
@@ -37,6 +39,49 @@ async function page(t, file) {
   return w;
 }
 const json = (value, status = 200) => Response.json(value, { status });
+
+test("Account menu exposes registration, supports Escape and replays welcome without deleting selections", async (t) => {
+  const w = await page(t, "index.html");
+  globalThis.fetch = async () => json({ error: "Inicia sesión." }, 401);
+  renderChrome();
+  initPrivacy();
+  localStorage.setItem("solevault_v3_favorites", "[101]");
+  savePrivacyChoice(true);
+  const trigger = document.querySelector("#accountMenuButton");
+  trigger.click();
+  assert.equal(trigger.getAttribute("aria-expanded"), "true");
+  assert(document.querySelector('#accountMenuPanel a[href="registro.html"]'));
+  assert(document.querySelector('#accountMenuPanel a[href="iniciar-sesion.html"]'));
+  document.dispatchEvent(new w.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  assert(document.querySelector("#accountMenuPanel").hidden);
+  assert.equal(document.activeElement, trigger);
+  trigger.click();
+  document.querySelector("#accountMenuPanel [data-replay-welcome]").click();
+  assert(document.querySelector("#welcomeDialog").open);
+  assert(!document.querySelector(".cookie-banner").hidden);
+  assert.equal(externalAllowed(), false);
+  assert.equal(localStorage.getItem("solevault_v3_favorites"), "[101]");
+  document.querySelector("#welcomeDialog [data-close-welcome]").click();
+  assert.equal(document.activeElement, trigger);
+});
+
+test("Cookie consent lasts in the current tab but does not authorize a new visit", async (t) => {
+  await page(t, "cookies.html");
+  localStorage.setItem("trazva_privacy_v1", JSON.stringify({version:1, external:true, savedAt:Date.now()}));
+  renderChrome();
+  initPrivacy();
+  assert.equal(externalAllowed(), false);
+  savePrivacyChoice(true);
+  assert(sessionStorage.getItem(CONSENT_KEY));
+  assert.equal(localStorage.getItem(CONSENT_KEY), null);
+  assert.equal(localStorage.getItem("trazva_privacy_v1"), null);
+  assert.equal(externalAllowed(), true);
+  await page(t, "cookies.html");
+  assert.equal(privacyChoice(), null);
+  renderChrome();
+  initPrivacy();
+  assert(!document.querySelector(".cookie-banner").hidden);
+});
 
 test("Registration uses verified identity and explicit unchecked legal acceptance; failed saves preserve the form", async (t) => {
   const w = await page(t, "registro.html");
@@ -138,16 +183,16 @@ test("Cookie preferences can be refused, reopened and changed; expired or invali
   d.querySelector("[data-save-privacy]").click();
   assert.equal(externalAllowed(), true);
   assert(!document.querySelector("#privacyDialog"));
-  localStorage.setItem(
+  sessionStorage.setItem(
     CONSENT_KEY,
     JSON.stringify({
-      version: 1,
+      version: 2,
       external: true,
       savedAt: Date.now() - CONSENT_TTL - 1,
     }),
   );
   assert.equal(externalAllowed(), false);
-  localStorage.setItem(CONSENT_KEY, "{broken");
+  sessionStorage.setItem(CONSENT_KEY, "{broken");
   assert.equal(externalAllowed(), false);
   for (const href of [
     "privacidad.html",

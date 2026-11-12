@@ -1,3 +1,3 @@
-export const LEGAL_VERSION = "2026-10-16";
-export const CONSENT_KEY = "trazva_privacy_v1";
-export const CONSENT_TTL = 180 * 24 * 60 * 60 * 1000;
+export const LEGAL_VERSION = "2026-11-12";
+export const CONSENT_KEY = "trazva_privacy_visit_v2";
+export const CONSENT_TTL = 30 * 60 * 1000;

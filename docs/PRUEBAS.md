@@ -4,7 +4,7 @@
 
 ## Resultado
 
-22 pruebas automatizadas pasan:
+24 pruebas automatizadas pasan:
 
 - 6 de API y D1 local: autenticación/origen/validación, selección aislada e idempotente, consultas idempotentes, registro con versión legal e identidad del proveedor, configuración bancaria solo administradora y sin filtración pública, exportación/borrado aislados por usuario.
 - 3 de catálogo: solo productos con modelo, búsqueda por múltiples palabras/categoría y filtros combinados, orden de precios/datos técnicos.
@@ -24,3 +24,10 @@ La publicación queda verificada por el estado final del alojamiento. Se conserv
 ## Preparación comercial
 
 No hay pagos ni pedidos reales. La administración debe completar su identidad, contacto, dirección, país y datos bancarios. Las políticas completas distinguen las funciones actuales de las condiciones que regirán los pedidos confirmados al habilitar ventas. Referencias: leyes 358-05 y 172-13 y registro de contratos de adhesión de Pro Consumidor. POLITICAS-COMERCIALES.md documenta datos pendientes y el compromiso propuesto de orden de reembolso en siete días hábiles. No se promete conformidad jurídica universal.
+
+
+## Revisión del 12 de noviembre de 2026
+
+Dos pruebas nuevas cubren el menú de cuenta, Escape y restauración del foco, bienvenida sin pérdida de favoritos y consentimiento que no pasa a una nueva sesión. Las pruebas previas se adaptaron a sessionStorage y a la nueva versión legal.
+
+La previsualización administrada sigue bloqueada: se corrigió la compatibilidad de argumentos del arranque, pero Wrangler termina con un error de infraestructura `uv_interface_addresses`. No se afirma comprobación visual.

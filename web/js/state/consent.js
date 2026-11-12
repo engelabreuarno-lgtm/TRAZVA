@@ -4,14 +4,14 @@ export function privacyChoice() {
   let value;
   try {
     value =
-      JSON.parse(localStorage.getItem(CONSENT_KEY)) ??
+      JSON.parse(sessionStorage.getItem(CONSENT_KEY)) ??
       sessionChoices.get(document);
   } catch {
     value = sessionChoices.get(document);
   }
   if (
     !value ||
-    value.version !== 1 ||
+    value.version !== 2 ||
     typeof value.external !== "boolean" ||
     !Number.isFinite(value.savedAt) ||
     value.savedAt > Date.now() ||
@@ -23,13 +23,13 @@ export function privacyChoice() {
 export const externalAllowed = () => privacyChoice()?.external === true;
 export function savePrivacyChoice(external) {
   const value = {
-    version: 1,
+    version: 2,
     external: external === true,
     savedAt: Date.now(),
   };
   let persisted = true;
   try {
-    localStorage.setItem(CONSENT_KEY, JSON.stringify(value));
+    sessionStorage.setItem(CONSENT_KEY, JSON.stringify(value));
     sessionChoices.delete(document);
   } catch {
     persisted = false;
@@ -37,4 +37,18 @@ export function savePrivacyChoice(external) {
   }
   document.dispatchEvent(new window.Event("trazva:privacy"));
   return persisted;
+}
+
+export function resetPrivacyChoice() {
+  try { sessionStorage.removeItem(CONSENT_KEY); } catch {}
+  sessionChoices.delete(document);
+  document.dispatchEvent(new window.Event("trazva:privacy"));
+}
+
+export function beginPrivacyVisit() {
+  // An old persistent choice must not silently authorize this new visit.
+  try { localStorage.removeItem("trazva_privacy_v1"); } catch {}
+  const navigation = window.performance.getEntriesByType?.("navigation")?.[0];
+  const internal = document.referrer && new URL(document.referrer).origin === location.origin;
+  if (navigation?.type === "navigate" && !internal) resetPrivacyChoice();
 }

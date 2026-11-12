@@ -21,7 +21,7 @@
         <p class="eyebrow">TRAZVA / INFORMACIÓN CLARA</p>
         <h1>Cookies y preferencias</h1>
         <p>Tú eliges qué contenido externo se activa en tu navegador.</p>
-        <small>Actualización: 16 de octubre de 2026 · Versión 2026-10-16</small>
+        <small>Actualización: 12 de noviembre de 2026 · Versión 2026-11-12</small>
       </header>
       <div class="legal-layout">
         <aside>
@@ -89,8 +89,8 @@
           <section id="preferencias">
             <h2><span>02</span>Una elección separada del registro</h2>
             <p>
-              Puedes elegir <strong>Solo necesarias</strong>,
-              <strong>Permitir externos</strong> o configurar el permiso. Los
+              Puedes elegir <strong>Rechazar opcionales</strong>,
+              <strong>Aceptar opcionales</strong> o configurar el permiso. Los
               modelos y el script de Sketchfab permanecen bloqueados hasta que
               lo autorizas. Rechazarlo no impide consultar la colección, usar la
               cuenta o ver los modelos alojados localmente. La aceptación de los
@@ -150,18 +150,17 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>trazva_privacy_v1 · localStorage</td>
+                    <td>trazva_privacy_visit_v2 · sessionStorage</td>
                     <td>
                       Guarda permiso de contenido externo, fecha y versión de la
-                      elección. Su validez es de 180 días; al vencer se solicita
-                      de nuevo.
+                      elección para esta visita. Se guarda en la pestaña durante un máximo de 30 minutos. Se vuelve a solicitar en una nueva visita, al caducar o al repetir la bienvenida.
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p>
-              Estas claves son propias de la aplicación. Sus nombres internos
+              La antigua preferencia persistente se descarta al entrar. Una pestaña restaurada o duplicada puede conservar la sesión; utiliza Repetir bienvenida para volver a elegir. Estas claves son propias de la aplicación. Sus nombres internos
               conservan referencias de versiones anteriores; no implican una
               conexión con otra tienda. La aplicación no lee las preferencias de
               otros dominios.
@@ -183,7 +182,7 @@
               y sus controles para conocer sus tratamientos.
             </p>
             <p>
-              La opción “Solo necesarias” controla las conexiones opcionales
+              La opción “Rechazar opcionales” controla las conexiones opcionales
               incorporadas por TRAZVA; no es una orden para borrar cookies del
               proveedor de identidad ni de otros servicios que hayas utilizado.
               Bloquear todas las cookies desde el navegador puede impedir el
