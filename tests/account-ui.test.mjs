@@ -151,6 +151,12 @@ test("Anonymous accounts show platform sign-in and unauthorized visitors cannot 
     /caducado/,
   );
   assert(!link.hidden);
+  await page(t, "registro.html");
+  globalThis.fetch = async () => json({ error: "Inicia sesión." }, 401);
+  await initAccount();
+  assert(document.querySelector("#profileForm").hidden);
+  assert(!document.querySelector("#signInLink").hidden);
+  assert.match(document.querySelector("#accountStatus").textContent, /primero debes iniciar sesión/);
 });
 
 test("Administration keeps sensitive fields hidden after a permission rejection", async (t) => {

@@ -24,7 +24,11 @@ export async function initAccount() {
     data = await studioAPI("/account");
   } catch (error) {
     status.textContent = error.message;
-    if (error.status === 401) $("#signInLink")?.removeAttribute("hidden");
+    if (error.status === 401) {
+      if (form) form.hidden = true;
+      $("#signInLink")?.removeAttribute("hidden");
+      if (page === "register") status.textContent = "Para crear tu cuenta de TRAZVA, primero debes iniciar sesión. Después podrás completar tu perfil.";
+    }
     else {
       const retry = document.createElement("button");
       retry.className = "text-link";
@@ -85,6 +89,12 @@ export async function initAccount() {
       $("#accountContinue")?.removeAttribute("hidden");
     } catch (error) {
       $("#profileStatus").textContent = error.message;
+      if (error.status === 401) {
+        form.hidden = true;
+        status.textContent = "Tu sesión ha caducado. Inicia sesión para continuar; no se ha guardado el perfil.";
+        $("#signInLink")?.removeAttribute("hidden");
+        $("#signInLink")?.focus();
+      }
     } finally {
       button.disabled = false;
     }

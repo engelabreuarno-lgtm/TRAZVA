@@ -108,6 +108,7 @@ test("Request retries do not duplicate records; users cannot delete another requ
 
 test("Registration requires current terms; identity comes only from the signed-in account", async () => {
   assert.equal((await call("/account", "GET", undefined, "")).status, 401);
+  assert.equal((await call("/account", "PUT", { name: "Sin sesión", acceptTerms: true, privacyRead: true, legalVersion: LEGAL_VERSION }, "")).status, 401);
   assert.equal((await call("/account", "PUT", { name: "Engel" })).status, 400);
   const input = {
     name: "Cuenta de prueba",
